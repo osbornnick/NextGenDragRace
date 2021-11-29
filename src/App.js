@@ -1,11 +1,16 @@
 import "./App.css";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./components/login";
+import Home from "./components/home";
 function App() {
     return (
         <BrowserRouter>
             <div className="container">
-                <Route path="/login" component={Login} />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="login" element={<Login />} />
+                    <Route path="*" element={<Home />} />
+                </Routes>
             </div>
         </BrowserRouter>
     );
