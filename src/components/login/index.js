@@ -1,42 +1,83 @@
-import React from "react";
+import React, { useState } from "react";
+import { login } from "../../services/userService.js";
+import { useDispatch } from "react-redux";
+import loadingImage from "../../svg/loading.svg";
 
 const Login = () => {
-    console.log("render login");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+    const handleLogin = async () => {
+        setLoading(true);
+        await login(dispatch, username, password).then((code) => {
+            if (code === "auth/invalid-email") {
+                setErrorMessage("Invalid e-mail.");
+            } else if (code === "auth/invalid-password") {
+                setErrorMessage("Incorrect password");
+            } else if (code === "auth/too-many-requests") {
+                setErrorMessage("Too many login requests.");
+            } else {
+                // show success, navigate to home page
+            }
+        });
+        setLoading(false);
+    };
     return (
         <div className="d-flex justify-content-center align-items-center vh-100">
-            <img src="/images/rupaul.jpg" alt="rupauls logo" />
-            <div className="card">
+            <div className="mx-3 d-none d-md-block">
+                <img
+                    className="rounded img-fluid"
+                    src="/images/rupaul.jpg"
+                    alt="rupauls logo"
+                />
+            </div>
+            <div className="card" style={{ minWidth: "25rem" }}>
                 <div className="card-body">
-                    <h5 className="card-title">Login</h5>
-                    <form>
-                        <div className="mb-3">
-                            <label
-                                for="exampleInputEmail1"
-                                className="form-label"
-                            >
-                                Email address
-                            </label>
-                            <input
-                                type="email"
-                                className="form-control"
-                                id="exampleInputEmail1"
-                                aria-describedby="emailHelp"
-                            />
+                    <h5 className="card-title">RuPaul's Login</h5>
+                    {loading ? (
+                        <div className="d-flex justify-content-center">
+                            <img src={loadingImage} alt="loading icon" />
                         </div>
-                        <div className="mb-3">
-                            <label for="pword" className="form-label">
-                                Password
-                            </label>
-                            <input
-                                type="password"
-                                className="form-control"
-                                id="pword"
-                            />
-                        </div>
-                        <button type="submit" className="btn btn-primary">
-                            Submit
-                        </button>
-                    </form>
+                    ) : (
+                        ""
+                    )}
+
+                    {errorMessage ? (
+                        <div className="alert alert-danger">{errorMessage}</div>
+                    ) : (
+                        ""
+                    )}
+                    <div className="mb-1">
+                        <label
+                            htmlFor="exampleInputEmail1"
+                            className="form-label"
+                        >
+                            Email address
+                        </label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            id="exampleInputEmail1"
+                            aria-describedby="emailHelp"
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-1">
+                        <label htmlFor="pword" className="form-label">
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            id="pword"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <button className="btn btn-primary" onClick={handleLogin}>
+                        Login
+                    </button>
                 </div>
             </div>
         </div>
