@@ -1,28 +1,31 @@
 import React, { useState } from "react";
 import { login } from "../../services/userService.js";
-import { useDispatch } from "react-redux";
 import loadingImage from "../../svg/loading.svg";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [loading, setLoading] = useState(false);
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleLogin = async () => {
         setLoading(true);
-        await login(dispatch, username, password).then((code) => {
-            if (code === "auth/invalid-email") {
-                setErrorMessage("Invalid e-mail.");
-            } else if (code === "auth/invalid-password") {
-                setErrorMessage("Incorrect password");
-            } else if (code === "auth/too-many-requests") {
-                setErrorMessage("Too many login requests.");
-            } else {
-                // show success, navigate to home page
-            }
-        });
-        setLoading(false);
+        await login(username, password)
+            .then((code) => {
+                if (code === "auth/invalid-email") {
+                    setErrorMessage("Invalid e-mail.");
+                } else if (code === "auth/invalid-password") {
+                    setErrorMessage("Incorrect password");
+                } else if (code === "auth/too-many-requests") {
+                    setErrorMessage("Too many login requests.");
+                } else {
+                    navigate("/profile");
+                    return false;
+                }
+                return true;
+            })
+            .then((shouldSet) => (shouldSet ? setLoading(false) : ""));
     };
     return (
         <div className="d-flex justify-content-center align-items-center vh-100">
