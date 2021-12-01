@@ -1,12 +1,12 @@
-import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./components/login";
 import Home from "./components/home";
 import Profile from "./components/profile";
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
+import queens from "./reducers/queens.js";
 
-const reducer = combineReducers({ test: false });
+const reducer = combineReducers({ queens });
 const store = createStore(reducer);
 
 function App() {

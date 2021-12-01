@@ -3,9 +3,10 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
 } from "firebase/auth";
-import app from "./initialize_firebase.js";
+import { app } from "./initialize_firebase.js";
 const auth = getAuth();
 
+// TODO generate entry in users table
 export const createUser = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
@@ -29,4 +30,8 @@ export const login = async (email, password) => {
         .catch((error) => {
             return error.code;
         });
+};
+
+export const getUserByID = async (id) => {
+    return id;
 };
