@@ -1,24 +1,21 @@
-export const QueenCard = (queen) => {
-    queen = queen.queen;
+// TODO: make just images, mouse over to see name
+export const QueenCard = (props) => {
+    const { queen } = props;
     return (
         <div
             className="card p-0 m-2"
-            style={{ maxWidth: "18rem", maxHeight: "25rem" }}
+            style={{ maxWidth: "12rem", maxHeight: "12rem" }}
         >
             <div className="card-img-top overflow-hidden">
                 <img
                     // className="card-img-top"
                     src={queen.image_url}
                     alt="queen's profile"
-                    style={{ width: "18rem" }}
+                    style={{ width: "15rem" }}
                 />
             </div>
             <div className="card-body">
-                <h5 className="card-title">{queen.name}</h5>
-                <div className="card-text">Just some sample text</div>
-                <a href="#" className="btn btn-secondary">
-                    See more
-                </a>
+                <h6 className="card-title">{queen.name}</h6>
             </div>
         </div>
     );

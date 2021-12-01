@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { paginateQueens } from "../../services/queenService";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +16,6 @@ const Home = () => {
         <>
             <h1>Home</h1>
             <Link to="login">Login page</Link>
-            {/* {JSON.stringify(queens)} */}
             <div className="row d-flex flex-row">
                 {queens
                     ? queens.map((q) => <QueenCard queen={q} />)
