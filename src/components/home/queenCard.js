@@ -4,9 +4,13 @@ import "./card.css";
 export const QueenImage = (props) => {
     const { queen } = props;
     const navigate = useNavigate();
+    // add gold border if winner
+    const container_class = queen.winner
+        ? "image-container overflow-hidden p-0 m-2 rounded position-relative border border-3"
+        : "image-container overflow-hidden p-0 m-2 rounded position-relative";
     return (
         <div
-            className="image-container overflow-hidden p-0 m-2 rounded position-relative"
+            className={container_class}
             style={{ maxWidth: "12rem", maxHeight: "12rem" }}
             onClick={() => navigate(`details/${queen.id}`)}
         >
