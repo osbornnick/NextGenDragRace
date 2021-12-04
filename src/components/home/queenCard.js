@@ -1,4 +1,26 @@
 import { useNavigate } from "react-router";
+import "./card.css";
+
+export const QueenImage = (props) => {
+    const { queen } = props;
+    const navigate = useNavigate();
+    return (
+        <div
+            className="image-container overflow-hidden p-0 m-2 rounded position-relative"
+            style={{ maxWidth: "12rem", maxHeight: "12rem" }}
+            onClick={() => navigate(`details/${queen.id}`)}
+        >
+            <img
+                src={queen.image_url}
+                alt="to queens profile"
+                className="img-fluid queen-image"
+            />
+            <h5 className="position-absolute overlay-name top-50 start-50 translate-middle">
+                {queen.name}
+            </h5>
+        </div>
+    );
+};
 
 export const QueenCard = (props) => {
     const { queen } = props;
