@@ -18,12 +18,14 @@ export const paginateQueens = async (dispatch, startAfterQueen = null) => {
         q = query(
             queenRef,
             orderBy("name"),
-            limit(25),
+            limit(10),
             startAfter(startAfterQueen)
         );
-    else q = query(queenRef, orderBy("name"), limit(25));
+    else q = query(queenRef, orderBy("name"), limit(10));
     getDocs(q).then((querySnapshot) => {
-        const queens = querySnapshot.docs.map((doc) => doc.data());
+        const queens = querySnapshot.docs.map((doc) => {
+            return { ...doc.data(), id: doc.id };
+        });
         dispatch({
             type: "set-queens",
             queens,

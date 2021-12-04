@@ -13,7 +13,6 @@ const reducer = combineReducers({ queens, queen });
 const store = createStore(reducer);
 
 function App() {
-    getQueenById(console.log, 1);
     return (
         <Provider store={store}>
             <BrowserRouter>
