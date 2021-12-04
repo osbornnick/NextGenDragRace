@@ -1,13 +1,20 @@
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import "./card.css";
 
 export const QueenImage = (props) => {
     const { queen } = props;
+    const [imgSrc, setImgSrc] = useState(queen.image_url);
+    const fallbackSrc = "/images/rupaul.jpg";
+    const onerr = () => {
+        console.log("on err event fired");
+        setImgSrc(fallbackSrc);
+    };
     const navigate = useNavigate();
     // add gold border if winner
     const container_class = queen.winner
-        ? "image-container overflow-hidden p-0 m-2 rounded position-relative border border-3"
-        : "image-container overflow-hidden p-0 m-2 rounded position-relative";
+        ? "image-container overflow-hidden p-0 m-2 rounded-3 position-relative border border-3"
+        : "image-container overflow-hidden p-0 m-2 rounded-3 position-relative";
     return (
         <div
             className={container_class}
@@ -15,9 +22,10 @@ export const QueenImage = (props) => {
             onClick={() => navigate(`details/${queen.id}`)}
         >
             <img
-                src={queen.image_url}
+                src={imgSrc ? imgSrc : fallbackSrc}
                 alt="to queens profile"
                 className="img-fluid queen-image"
+                onError={onerr}
             />
             <h5 className="position-absolute overlay-name top-50 start-50 translate-middle">
                 {queen.name}
@@ -26,6 +34,7 @@ export const QueenImage = (props) => {
     );
 };
 
+// currently unused
 export const QueenCard = (props) => {
     const { queen } = props;
     const navigate = useNavigate();

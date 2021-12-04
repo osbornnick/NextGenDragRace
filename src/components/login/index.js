@@ -27,6 +27,9 @@ const Login = () => {
             })
             .then((shouldSet) => (shouldSet ? setLoading(false) : ""));
     };
+    const handleKeyPress = (e) => {
+        if (e.code === "Enter") handleLogin();
+    };
     return (
         <div className="d-flex justify-content-center align-items-center vh-100">
             <div className="mx-3 d-none d-md-block">
@@ -65,6 +68,7 @@ const Login = () => {
                             id="exampleInputEmail1"
                             aria-describedby="emailHelp"
                             onChange={(e) => setUsername(e.target.value)}
+                            onKeyPress={handleKeyPress}
                         />
                     </div>
                     <div className="mb-1">
@@ -76,6 +80,7 @@ const Login = () => {
                             className="form-control"
                             id="pword"
                             onChange={(e) => setPassword(e.target.value)}
+                            onKeyPress={handleKeyPress}
                         />
                     </div>
                     <button className="btn btn-primary" onClick={handleLogin}>

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { paginateQueens } from "../../services/queenService";
 import { useDispatch, useSelector } from "react-redux";
-import { QueenImage } from "./queenCard";
+import { QueenImage } from "./QueenCard";
 
 const selectQueens = (state) => state.queens.queens;
 
