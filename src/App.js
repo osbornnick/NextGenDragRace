@@ -5,11 +5,14 @@ import Profile from "./components/profile";
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 import queens from "./reducers/queens.js";
+import queen from "./reducers/queen.js";
+import { getQueenById } from "./services/queenService";
 
-const reducer = combineReducers({ queens });
+const reducer = combineReducers({ queens, queen });
 const store = createStore(reducer);
 
 function App() {
+    getQueenById(console.log, 1);
     return (
         <Provider store={store}>
             <BrowserRouter>

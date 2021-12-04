@@ -6,6 +6,8 @@ import {
     orderBy,
     limit,
     startAfter,
+    doc,
+    getDoc,
 } from "firebase/firestore";
 
 const queenRef = collection(db, "queens");
@@ -30,3 +32,9 @@ export const paginateQueens = async (dispatch, startAfterQueen = null) => {
 };
 
 // get queen by id
+export const getQueenById = async (dispatch, id) => {
+    const docSnap = await getDoc(doc(db, "queens", id.toString()));
+    if (docSnap.exists()) {
+        dispatch({ type: "set-queen", queen: docSnap.data() });
+    } else return null;
+};

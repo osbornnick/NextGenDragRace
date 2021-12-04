@@ -18,7 +18,7 @@ const Home = () => {
             <Link to="login">Login page</Link>
             <div className="row d-flex flex-row">
                 {queens
-                    ? queens.map((q) => <QueenCard queen={q} />)
+                    ? queens.map((q, i) => <QueenCard queen={q} key={i} />)
                     : "loading queens"}
             </div>
         </>
