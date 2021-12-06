@@ -15,7 +15,6 @@ const Home = () => {
     return (
         <>
             <h1>Home</h1>
-            <Link to="login">Login page</Link>
             <div className="row d-flex flex-row">
                 {queens
                     ? queens.map((q, i) => <QueenImage queen={q} key={q.id} />)

@@ -3,11 +3,11 @@ import Login from "./components/login";
 import Home from "./components/home";
 import Profile from "./components/profile";
 import Details from "./components/details";
+import Navbar from "./components/navigation";
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 import queens from "./reducers/queens.js";
 import queen from "./reducers/queen.js";
-import { getQueenById } from "./services/queenService";
 
 const reducer = combineReducers({ queens, queen });
 const store = createStore(reducer);
@@ -17,6 +17,7 @@ function App() {
         <Provider store={store}>
             <BrowserRouter>
                 <div className="container">
+                    <Navbar />
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="login" element={<Login />} />

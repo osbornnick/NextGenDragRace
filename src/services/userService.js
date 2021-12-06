@@ -2,6 +2,7 @@ import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    signOut,
 } from "firebase/auth";
 import { app } from "./initialize_firebase.js";
 const auth = getAuth();
@@ -32,6 +33,15 @@ export const login = async (email, password) => {
         });
 };
 
+export const logout = async () => {
+    signOut(auth)
+        .then(() => {
+            // signout successful
+        })
+        .catch(console.log);
+};
+
+// TODO
 export const getUserByID = async (id) => {
     return id;
 };
