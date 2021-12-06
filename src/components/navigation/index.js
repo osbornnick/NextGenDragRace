@@ -1,16 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { logout } from "../../services/userService.js";
+import { useSelector } from "react-redux";
 
 const Navbar = (props) => {
-    const auth = getAuth();
-    const [user, setUser] = useState(null);
-    onAuthStateChanged(auth, (u) => {
-        if (u) setUser(u);
-        else setUser(null);
-    });
+    const user = useSelector((state) => state.user.user);
     return (
         <nav className="navbar navbar-expand-lg navbar-dark">
             <div className="container-fluid">
