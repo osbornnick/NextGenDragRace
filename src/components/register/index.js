@@ -23,15 +23,16 @@ const RegistrationCard = (props) => {
     const [password, setPassword] = useState(null);
     const [firstName, setFirstName] = useState(null);
     const [lastName, setLastName] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
     const handleRegister = async () => {
         let success = false;
         await createUser(username, password).then((code) => {
             if (code === "auth/invalid-email") {
-                // not allowed
+                setErrorMessage("invalid e-mail");
             } else if (code === "auth/email-already-in-use") {
-                // handle
+                setErrorMessage("An account already exists with this e-mail");
             } else if (code === "auth/weak-password") {
-                // handle
+                setErrorMessage("Please choose a stronger password");
             } else {
                 success = true;
             }
@@ -43,6 +44,11 @@ const RegistrationCard = (props) => {
         <div className="card" style={{ minWidth: "25rem" }}>
             <div className="card-body">
                 <h5 className="card-title">RuPaul's Registration</h5>
+                {errorMessage ? (
+                    <div className="alert alert-danger">{errorMessage}</div>
+                ) : (
+                    ""
+                )}
                 <div className="row mb-2">
                     <div className="col-md-6">
                         <div className="form-floating">
