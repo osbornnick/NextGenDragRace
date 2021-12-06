@@ -8,6 +8,7 @@ const Profile = () => {
     const [user, setUser] = useState(null);
     onAuthStateChanged(auth, (u) => {
         if (u) setUser(u);
+        else setUser(null);
     });
     return (
         <>

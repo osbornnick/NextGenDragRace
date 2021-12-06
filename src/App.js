@@ -4,6 +4,7 @@ import Home from "./components/home";
 import Profile from "./components/profile";
 import Details from "./components/details";
 import Navbar from "./components/navigation";
+import Register from "./components/register";
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 import queens from "./reducers/queens.js";
@@ -22,6 +23,7 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="login" element={<Login />} />
                         <Route path="profile" element={<Profile />} />
+                        <Route path="register" element={<Register />} />
                         <Route path="details/:id" element={<Details />} />
                         <Route path="*" element={<Home />} />
                     </Routes>
