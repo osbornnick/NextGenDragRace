@@ -10,7 +10,7 @@ const LoginPage = () => {
         else setUser(null);
     });
     return (
-        <div className="d-flex justify-content-center align-items-center vh-100">
+        <div className="d-flex justify-content-center align-items-center h-100 mt-5">
             <div className="mx-3 d-none d-md-block">
                 <img
                     className="rounded img-fluid"

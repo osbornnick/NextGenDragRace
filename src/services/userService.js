@@ -4,7 +4,7 @@ import {
     signInWithEmailAndPassword,
     signOut,
 } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db, app } from "./initialize_firebase.js";
 const auth = getAuth();
 
@@ -13,15 +13,24 @@ export const createUser = async (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
+            setDoc(doc(db, "users", user.uid), { type: "standard" });
             return 200;
-            // dispatch({ type: "login", user });
         })
         .catch((error) => {
             return error.code;
         });
 };
 
-export const updateUser = (obj) => {};
+export const updateCurrentUser = async (obj) => {
+    const auth = getAuth();
+    if (auth.currentUser) {
+        return setDoc(doc(db, "users", auth.currentUser.uid), obj, {
+            merge: true,
+        });
+    } else {
+        return Promise.reject(new Error("current user not authenticated"));
+    }
+};
 
 export const login = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password)

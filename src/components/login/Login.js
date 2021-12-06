@@ -22,7 +22,6 @@ const Login = () => {
                 } else if (code === "auth/internal-error") {
                     setErrorMessage("Please enter a password.");
                 } else if (code === 200) {
-                    console.log(code);
                     navigate("/profile");
                     return false;
                 }

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { createUser } from "../../services/userService";
+import { createUser, updateCurrentUser } from "../../services/userService";
 import { useNavigate } from "react-router";
 import loadingImage from "../../svg/loading.svg";
 
 const Register = (props) => {
     return (
-        <div className="d-flex justify-content-center align-items-center vh-100">
+        <div className="d-flex justify-content-center align-items-center h-100  mt-5">
             <div className="mx-3 d-none d-md-block">
                 <img
                     className="rounded img-fluid"
@@ -45,8 +45,14 @@ const RegistrationCard = (props) => {
             }
         });
         setLoading(false);
-        // TODO set firstName and lastName
-        if (success) navigate("/profile");
+        if (success) {
+            updateCurrentUser({
+                firstName,
+                lastName,
+                handle: firstName.substr(0, 1) + "_" + lastName,
+            });
+            navigate("/profile");
+        }
     };
     const handleKeyPress = (e) => {
         if (e.code === "Enter") handleRegister();
