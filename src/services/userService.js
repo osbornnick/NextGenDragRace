@@ -13,7 +13,6 @@ export const createUser = async (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
-            console.log(user);
             return 200;
             // dispatch({ type: "login", user });
         })

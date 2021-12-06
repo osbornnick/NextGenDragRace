@@ -15,11 +15,14 @@ const Login = () => {
             .then((code) => {
                 if (code === "auth/invalid-email") {
                     setErrorMessage("Invalid e-mail.");
-                } else if (code === "auth/invalid-password") {
+                } else if (code === "auth/wrong-password") {
                     setErrorMessage("Incorrect password");
                 } else if (code === "auth/too-many-requests") {
                     setErrorMessage("Too many login requests.");
-                } else {
+                } else if (code === "auth/internal-error") {
+                    setErrorMessage("Please enter a password.");
+                } else if (code === 200) {
+                    console.log(code);
                     navigate("/profile");
                     return false;
                 }
@@ -47,10 +50,7 @@ const Login = () => {
                 ) : (
                     ""
                 )}
-                <div className="mb-1">
-                    <label htmlFor="exampleInputEmail1" className="form-label">
-                        Email address
-                    </label>
+                <div className="mb-2 form-floating">
                     <input
                         type="email"
                         className="form-control"
@@ -58,19 +58,24 @@ const Login = () => {
                         aria-describedby="emailHelp"
                         onChange={(e) => setUsername(e.target.value)}
                         onKeyPress={handleKeyPress}
+                        placeholder="a"
                     />
-                </div>
-                <div className="mb-1">
-                    <label htmlFor="pword" className="form-label">
-                        Password
+                    <label htmlFor="exampleInputEmail1" className="form-label">
+                        Email address
                     </label>
+                </div>
+                <div className="mb-2 form-floating">
                     <input
                         type="password"
                         className="form-control"
                         id="pword"
                         onChange={(e) => setPassword(e.target.value)}
                         onKeyPress={handleKeyPress}
+                        placeholder="a"
                     />
+                    <label htmlFor="pword" className="form-label">
+                        Password
+                    </label>
                 </div>
                 <button className="btn btn-primary me-2" onClick={handleLogin}>
                     Login

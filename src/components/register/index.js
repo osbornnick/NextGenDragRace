@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { createUser } from "../../services/userService";
 import { useNavigate } from "react-router";
+import loadingImage from "../../svg/loading.svg";
 
 const Register = (props) => {
     return (
@@ -24,8 +25,10 @@ const RegistrationCard = (props) => {
     const [firstName, setFirstName] = useState(null);
     const [lastName, setLastName] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
+    const [loading, setLoading] = useState(false);
     const handleRegister = async () => {
         let success = false;
+        setLoading(true);
         await createUser(username, password).then((code) => {
             if (code === "auth/invalid-email") {
                 setErrorMessage("invalid e-mail");
@@ -33,17 +36,32 @@ const RegistrationCard = (props) => {
                 setErrorMessage("An account already exists with this e-mail");
             } else if (code === "auth/weak-password") {
                 setErrorMessage("Please choose a stronger password");
-            } else {
+            } else if (code === "auth/admin-restricted-operation") {
+                setErrorMessage("Please enter an Email and Password");
+            } else if (code === "auth/internal-error") {
+                setErrorMessage("Please try again");
+            } else if (code === 200) {
                 success = true;
             }
         });
-        // set firstName and lastName
+        setLoading(false);
+        // TODO set firstName and lastName
         if (success) navigate("/profile");
+    };
+    const handleKeyPress = (e) => {
+        if (e.code === "Enter") handleRegister();
     };
     return (
         <div className="card" style={{ minWidth: "25rem" }}>
             <div className="card-body">
                 <h5 className="card-title">RuPaul's Registration</h5>
+                {loading ? (
+                    <div className="d-flex justify-content-center mb-2">
+                        <img src={loadingImage} alt="loading icon" />
+                    </div>
+                ) : (
+                    ""
+                )}
                 {errorMessage ? (
                     <div className="alert alert-danger">{errorMessage}</div>
                 ) : (
@@ -98,6 +116,7 @@ const RegistrationCard = (props) => {
                         id="password"
                         placeholder="email"
                         onChange={(e) => setPassword(e.target.value)}
+                        onKeyPress={handleKeyPress}
                     />
                     <label htmlFor="password" className="form-label">
                         Password
