@@ -5,14 +5,15 @@ import Profile from "./components/profile";
 import Details from "./components/details";
 import Navbar from "./components/navigation";
 import Register from "./components/register";
-import { Provider, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 import queens from "./reducers/queens.js";
 import queen from "./reducers/queen.js";
 import user from "./reducers/user.js";
+import comments from "./reducers/comments.js";
 import UserListener from "./components/UserListener";
 
-const reducer = combineReducers({ queens, queen, user });
+const reducer = combineReducers({ queens, queen, user, comments });
 const store = createStore(reducer);
 
 function App() {

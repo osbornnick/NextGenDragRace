@@ -37,6 +37,9 @@ export const paginateQueens = async (dispatch, startAfterQueen = null) => {
 export const getQueenById = async (dispatch, id) => {
     const docSnap = await getDoc(doc(db, "queens", id.toString()));
     if (docSnap.exists()) {
-        dispatch({ type: "set-queen", queen: docSnap.data() });
+        dispatch({
+            type: "set-queen",
+            queen: { ...docSnap.data(), id: docSnap.id },
+        });
     } else return null;
 };
