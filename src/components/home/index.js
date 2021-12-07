@@ -4,11 +4,11 @@ import { paginateQueens } from "../../services/queenService";
 import { useDispatch, useSelector } from "react-redux";
 import { QueenImage } from "./QueenCard";
 
-const selectQueens = (state) => state.queens.queens;
+const selectQueens = (state) => state.queens;
 
 const Home = () => {
     const dispatch = useDispatch();
-    const queens = useSelector(selectQueens);
+    const { queens } = useSelector(selectQueens);
     useEffect(() => {
         paginateQueens(dispatch, null);
     }, []);
