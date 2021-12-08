@@ -1,14 +1,4 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import MyProfile from "./MyProfile.js";
+import OtherProfile from "./OtherProfile.js";
 
-const Profile = () => {
-    const { currentUser } = useSelector((state) => state.currentUser);
-    return (
-        <>
-            <h1>Profile</h1>
-            {JSON.stringify(currentUser)}
-        </>
-    );
-};
-
-export default Profile;
+export { OtherProfile, MyProfile };

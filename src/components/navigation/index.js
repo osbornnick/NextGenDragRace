@@ -5,7 +5,7 @@ import { logout } from "../../services/userService.js";
 import { useSelector } from "react-redux";
 
 const Navbar = (props) => {
-    const { user: currentUser } = useSelector((state) => state.currentUser);
+    const { currentUser } = useSelector((state) => state.currentUser);
     return (
         <nav className="navbar navbar-expand-lg navbar-dark">
             <div className="container-fluid">

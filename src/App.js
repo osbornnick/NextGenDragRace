@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./components/login";
 import Home from "./components/home";
-import Profile from "./components/profile";
+import { OtherProfile, MyProfile } from "./components/profile";
 import Details from "./components/details";
 import Navbar from "./components/navigation";
 import Register from "./components/register";
@@ -27,11 +27,10 @@ function App() {
                 <div className="container">
                     <Navbar />
                     <Routes>
-                        <Route path="/" element={<Home />} />
+                        <Route path="/home" element={<Home />} />
                         <Route path="login" element={<Login />} />
-                        <Route path="profile" element={<Profile />}>
-                            <Route path=":id" element={null} />
-                        </Route>
+                        <Route path="profile" element={<MyProfile />} />
+                        <Route path="profile/:id" element={<OtherProfile />} />
                         <Route path="register" element={<Register />} />
                         <Route path="details/:id" element={<Details />} />
                         <Route path="*" element={<Home />} />
