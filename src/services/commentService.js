@@ -29,7 +29,7 @@ export const makeComment = async (dispatch, onEntity, onID, text, userID) => {
         onEntity,
         onID,
         text,
-        userID,
+        writtenBy: userID,
         dateCreated: Date.now(),
     };
     addDoc(collection(db, "comments"), comment);
