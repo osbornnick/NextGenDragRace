@@ -14,7 +14,10 @@ import comments from "./reducers/comments.js";
 import UserListener from "./components/UserListener";
 
 const reducer = combineReducers({ queens, queen, user, comments });
-const store = createStore(reducer);
+const store = createStore(
+    reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 function App() {
     return (

@@ -12,7 +12,7 @@ export const getCommentsOnEntity = async (dispatch, entityType, entityId) => {
     const q = query(
         collection(db, "comments"),
         where("onEntity", "==", entityType),
-        where("onID", "==", entityId),
+        where("onID", "==", parseInt(entityId)),
         orderBy("dateCreated", "desc")
     );
     getDocs(q).then((querySnapshot) => {
