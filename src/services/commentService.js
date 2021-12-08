@@ -6,6 +6,7 @@ import {
     getDocs,
     addDoc,
     orderBy,
+    Timestamp,
 } from "firebase/firestore";
 
 export const getCommentsOnEntity = async (dispatch, entityType, entityId) => {
@@ -27,10 +28,10 @@ export const getCommentsOnEntity = async (dispatch, entityType, entityId) => {
 export const makeComment = async (dispatch, onEntity, onID, text, userID) => {
     const comment = {
         onEntity,
-        onID,
+        onID: parseInt(onID),
         text,
         writtenBy: userID,
-        dateCreated: Date.now(),
+        dateCreated: Timestamp.now(),
     };
     addDoc(collection(db, "comments"), comment);
     dispatch({
