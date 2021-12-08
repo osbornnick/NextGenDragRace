@@ -10,7 +10,7 @@ const Home = () => {
     const dispatch = useDispatch();
     const { queens } = useSelector(selectQueens);
     useEffect(() => {
-        paginateQueens(dispatch, null);
+        paginateQueens(dispatch, 0);
     }, []);
     return (
         <>

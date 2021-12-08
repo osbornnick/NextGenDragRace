@@ -8,12 +8,14 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db, app } from "./initialize_firebase.js";
 const auth = getAuth();
 
-// TODO generate entry in users table
 export const createUser = async (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             const user = userCredential.user;
-            setDoc(doc(db, "users", user.uid), { type: "standard" });
+            setDoc(doc(db, "users", user.uid), {
+                type: "standard",
+                verified: false,
+            });
             return 200;
         })
         .catch((error) => {
