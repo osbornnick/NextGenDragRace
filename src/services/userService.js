@@ -53,6 +53,6 @@ export const logout = async () => {
 export const getUserDetails = async (id) => {
     const docSnap = await getDoc(doc(db, "users", id.toString()));
     if (docSnap.exists()) {
-        return docSnap.data();
+        return { ...docSnap.data(), id: docSnap.id };
     } else return null;
 };
