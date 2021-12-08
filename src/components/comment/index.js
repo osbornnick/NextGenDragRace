@@ -25,29 +25,43 @@ const CommentSection = (props) => {
                     <h5 className="mb-0">Comments</h5>
                 </li>
                 <li className="list-group-item">
-                    {user ? (
-                        <div className="input-group">
-                            <textarea
-                                type="text"
-                                className="form-control"
-                                placeholder="What do you think..."
-                                onChange={(e) => setNewComment(e.target.value)}
-                            />
-                            <button
-                                className="btn btn-secondary"
-                                onClick={handlePostClick}
-                            >
-                                Post
-                            </button>
-                        </div>
-                    ) : (
-                        "login to post"
-                    )}
+                    <PostComment
+                        parentEntityType={parentEntityType}
+                        parentId={parentId}
+                        user={user}
+                    />
                 </li>
                 {comments
                     ? comments.map((c, i) => <Comment comment={c} _key={i} />)
                     : ""}
             </ul>
+        </div>
+    );
+};
+
+const PostComment = (props) => {
+    const dispatch = useDispatch();
+    const { parentEntityType, parentId, user } = props;
+    const [newComment, setNewComment] = useState("");
+    const handlePostClick = () =>
+        makeComment(dispatch, parentEntityType, parentId, newComment, user.id);
+    const isDisabled = user ? false : true;
+    return (
+        <div className="input-group">
+            <textarea
+                type="text"
+                className="form-control"
+                placeholder={user ? "What do you think..." : "Login to post"}
+                onChange={(e) => setNewComment(e.target.value)}
+                disabled={isDisabled}
+            />
+            <button
+                className="btn btn-secondary"
+                onClick={handlePostClick}
+                disabled={isDisabled}
+            >
+                Post
+            </button>
         </div>
     );
 };
