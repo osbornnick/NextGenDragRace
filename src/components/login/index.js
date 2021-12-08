@@ -3,7 +3,7 @@ import Login from "./Login.js";
 import { useSelector } from "react-redux";
 
 const LoginPage = () => {
-    const user = useSelector((state) => state.user.user);
+    const { currentUser } = useSelector((state) => state.currentUser);
     return (
         <div className="d-flex justify-content-center align-items-center h-100 mt-5">
             <div className="mx-3 d-none d-md-block">
@@ -13,7 +13,7 @@ const LoginPage = () => {
                     alt="rupauls logo"
                 />
             </div>
-            {user ? "You are currently logged in" : <Login />}
+            {currentUser ? "You are currently logged in" : <Login />}
         </div>
     );
 };

@@ -5,16 +5,13 @@ import { getUserDetails } from "../../services/userService";
 import { makeComment } from "../../services/commentService";
 
 const commentSelector = (state) => state.comments;
-const userSelector = (state) => state.user;
+const userSelector = (state) => state.currentUser;
 
 const CommentSection = (props) => {
     const dispatch = useDispatch();
     const { parentEntityType, parentId } = props;
     const { comments } = useSelector(commentSelector);
     const { user } = useSelector(userSelector);
-    const [newComment, setNewComment] = useState("");
-    const handlePostClick = () =>
-        makeComment(dispatch, parentEntityType, parentId, newComment, user.id);
     useEffect(() => {
         getCommentsOnEntity(dispatch, parentEntityType, parentId);
     }, [parentEntityType, parentId]);

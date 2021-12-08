@@ -9,11 +9,11 @@ import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 import queens from "./reducers/queens.js";
 import queen from "./reducers/queen.js";
-import user from "./reducers/user.js";
+import currentUser from "./reducers/currentUser.js";
 import comments from "./reducers/comments.js";
 import UserListener from "./components/UserListener";
 
-const reducer = combineReducers({ queens, queen, user, comments });
+const reducer = combineReducers({ queens, queen, currentUser, comments });
 const store = createStore(
     reducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
@@ -29,7 +29,9 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="login" element={<Login />} />
-                        <Route path="profile" element={<Profile />} />
+                        <Route path="profile" element={<Profile />}>
+                            <Route path=":id" element={null} />
+                        </Route>
                         <Route path="register" element={<Register />} />
                         <Route path="details/:id" element={<Details />} />
                         <Route path="*" element={<Home />} />

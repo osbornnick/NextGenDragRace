@@ -5,7 +5,7 @@ import { logout } from "../../services/userService.js";
 import { useSelector } from "react-redux";
 
 const Navbar = (props) => {
-    const user = useSelector((state) => state.user.user);
+    const { user: currentUser } = useSelector((state) => state.currentUser);
     return (
         <nav className="navbar navbar-expand-lg navbar-dark">
             <div className="container-fluid">
@@ -42,7 +42,7 @@ const Navbar = (props) => {
                             aria-label="search"
                         />
                     </form>
-                    <LoginOrLogout user={user} />
+                    <LoginOrLogout user={currentUser} />
                 </div>
             </div>
         </nav>
