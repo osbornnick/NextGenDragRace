@@ -12,16 +12,19 @@ export const Search = () => {
     );
 };
 
+export const NoSearchTerm = () => {
+    return <h1>Search for something in the Navbar</h1>;
+};
+
 export const Results = () => {
     const { searchTerm } = useParams();
+    console.log(searchTerm);
     const [results, setResults] = useState([]);
     useEffect(() => {
-        console.log("requesting from API");
         searchQueens(searchTerm).then((res) => {
-            console.log(res);
             setResults(res);
         });
-    }, []);
+    }, [searchTerm]);
 
     return (
         <>

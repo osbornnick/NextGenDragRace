@@ -6,7 +6,7 @@ import Details from "./components/details";
 import QueenDetails from "./components/details/queens";
 import Navbar from "./components/navigation";
 import Register from "./components/register";
-import { Search, Results } from "./components/search";
+import { Search, Results, NoSearchTerm } from "./components/search";
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 import queens from "./reducers/queens.js";
@@ -41,6 +41,7 @@ function App() {
                             />
                         </Route>
                         <Route path="search" element={<Search />}>
+                            <Route index element={<NoSearchTerm />} />
                             <Route path=":searchTerm" element={<Results />} />
                         </Route>
                         <Route path="*" element={<Home />} />

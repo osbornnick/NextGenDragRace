@@ -31,7 +31,6 @@ export const getQueenById = async (dispatch, id) => {
 // GET EVERY QUEEN I GUESS
 export const searchQueens = async (name) => {
     const url = `${API_URL}/all`;
-    console.log("fetching EVERYBODY");
     return fetch(url)
         .then((res) => res.json())
         .then((data) => {
