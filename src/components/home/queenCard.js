@@ -19,7 +19,7 @@ export const QueenImage = (props) => {
         <div
             className={container_class}
             style={{ maxWidth: "12rem", maxHeight: "12rem" }}
-            onClick={() => navigate(`details/${queen.id}`)}
+            onClick={() => navigate(`/details/queens/${queen.id}`)}
         >
             <img
                 src={imgSrc ? imgSrc : fallbackSrc}
@@ -42,7 +42,7 @@ export const QueenCard = (props) => {
         <div
             className="card p-0 m-2"
             style={{ maxWidth: "12rem", maxHeight: "12rem" }}
-            onClick={() => navigate(`details/${queen.id}`)}
+            onClick={() => navigate(`details/queens/${queen.id}`)}
         >
             <div className="card-img-top overflow-hidden">
                 <img

@@ -3,8 +3,10 @@ import Login from "./components/login";
 import Home from "./components/home";
 import { OtherProfile, MyProfile } from "./components/profile";
 import Details from "./components/details";
+import QueenDetails from "./components/details/queens";
 import Navbar from "./components/navigation";
 import Register from "./components/register";
+import { Search, Results } from "./components/search";
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
 import queens from "./reducers/queens.js";
@@ -32,7 +34,15 @@ function App() {
                         <Route path="profile" element={<MyProfile />} />
                         <Route path="profile/:id" element={<OtherProfile />} />
                         <Route path="register" element={<Register />} />
-                        <Route path="details/:id" element={<Details />} />
+                        <Route path="details" element={<Details />}>
+                            <Route
+                                path="queens/:id"
+                                element={<QueenDetails />}
+                            />
+                        </Route>
+                        <Route path="search" element={<Search />}>
+                            <Route path=":searchTerm" element={<Results />} />
+                        </Route>
                         <Route path="*" element={<Home />} />
                     </Routes>
                 </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { logout } from "../../services/userService.js";
@@ -34,18 +34,37 @@ const Navbar = (props) => {
                         {/* <li className="nav-item"></li>
                         <li className="nav-item"></li> */}
                     </ul>
-                    <form className="d-flex me-2">
-                        <input
-                            className="form-control"
-                            type="search"
-                            placeholder="search..."
-                            aria-label="search"
-                        />
-                    </form>
+                    <Search />
                     <LoginOrLogout user={currentUser} />
                 </div>
             </div>
         </nav>
+    );
+};
+
+const Search = () => {
+    const [searchTerm, setSearchTerm] = useState("");
+    const navigate = useNavigate();
+
+    const handleSearchClick = (e) => {
+        navigate(`/search/${searchTerm}`);
+    };
+    return (
+        <div className="d-flex">
+            <input
+                className="form-control me-2"
+                type="search"
+                placeholder="search..."
+                aria-label="search"
+                onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button
+                className="btn btn-secondary me-2"
+                onClick={handleSearchClick}
+            >
+                Search
+            </button>
+        </div>
     );
 };
 
