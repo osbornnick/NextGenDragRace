@@ -7,6 +7,7 @@ const OtherProfile = () => {
     const [user, setUser] = useState(null);
     useEffect(() => getUserDetails(id).then((u) => setUser(u)), []);
     return JSON.stringify(user);
+    // STYLING HERE! THIS NEEDS ATTENTION
 };
 
 export default OtherProfile;

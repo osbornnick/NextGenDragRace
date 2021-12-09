@@ -18,7 +18,6 @@ export const NoSearchTerm = () => {
 
 export const Results = () => {
     const { searchTerm } = useParams();
-    console.log(searchTerm);
     const [results, setResults] = useState([]);
     useEffect(() => {
         searchQueens(searchTerm).then((res) => {
@@ -30,6 +29,7 @@ export const Results = () => {
         <>
             <h1>Results!</h1>
             {results ? JSON.stringify(results) : ""}
+            {/* STYLING HERE */}
         </>
     );
 };

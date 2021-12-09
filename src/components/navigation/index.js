@@ -45,6 +45,9 @@ const Navbar = (props) => {
 const Search = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
+    const handleKeyPress = (e) => {
+        if (e.code === "Enter") handleSearchClick();
+    };
 
     const handleSearchClick = (e) => {
         navigate(`/search/${searchTerm}`);
@@ -57,6 +60,7 @@ const Search = () => {
                 placeholder="search..."
                 aria-label="search"
                 onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyPress={handleKeyPress}
             />
             <button
                 className="btn btn-secondary me-2"

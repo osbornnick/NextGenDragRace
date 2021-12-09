@@ -6,6 +6,7 @@ const MyProfile = () => {
         <>
             <h1>Profile</h1>
             {JSON.stringify(currentUser)}
+            {/* STYLING HERE, ADD FUNCTIONALITY TO EDIT THIS */}
         </>
     );
 };

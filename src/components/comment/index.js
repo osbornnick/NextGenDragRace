@@ -11,7 +11,7 @@ const CommentSection = (props) => {
     const dispatch = useDispatch();
     const { parentEntityType, parentId } = props;
     const { comments } = useSelector(commentSelector);
-    const { user } = useSelector(userSelector);
+    const { currentUser } = useSelector(userSelector);
     useEffect(() => {
         getCommentsOnEntity(dispatch, parentEntityType, parentId);
     }, [parentEntityType, parentId]);
@@ -25,7 +25,7 @@ const CommentSection = (props) => {
                     <PostComment
                         parentEntityType={parentEntityType}
                         parentId={parentId}
-                        user={user}
+                        user={currentUser}
                     />
                 </li>
                 {comments

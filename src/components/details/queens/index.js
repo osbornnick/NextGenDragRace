@@ -15,7 +15,8 @@ const Details = (props) => {
     }, []);
     return (
         <>
-            {JSON.stringify(queen)}
+            {JSON.stringify(queen)} 
+            {/* STYLING HERE */}
             {queen ? (
                 <CommentSection parentEntityType="queens" parentId={queen.id} />
             ) : (
