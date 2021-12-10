@@ -14,8 +14,15 @@ import queen from "./reducers/queen.js";
 import currentUser from "./reducers/currentUser.js";
 import comments from "./reducers/comments.js";
 import UserListener from "./components/UserListener";
+import rosters from "./reducers/rosters";
 
-const reducer = combineReducers({ queens, queen, currentUser, comments });
+const reducer = combineReducers({
+    queens,
+    queen,
+    currentUser,
+    comments,
+    myRosters: rosters,
+});
 const store = createStore(
     reducer,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

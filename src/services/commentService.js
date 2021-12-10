@@ -9,23 +9,24 @@ import {
     Timestamp,
 } from "firebase/firestore";
 
-export const getCommentsOnEntity = async (dispatch, entityType, entityId) => {
+export const getCommentsOnEntity = (dispatch, entityType, entityId) => {
     const q = query(
         collection(db, "comments"),
         where("onEntity", "==", entityType),
         where("onID", "==", parseInt(entityId)),
         orderBy("dateCreated", "desc")
     );
-    getDocs(q).then((querySnapshot) => {
+    return getDocs(q).then((querySnapshot) => {
         const comments = querySnapshot.docs.map((doc) => doc.data());
         dispatch({
             type: "set-comments",
             comments,
         });
+        return comments;
     });
 };
 
-export const makeComment = async (dispatch, onEntity, onID, text, userID) => {
+export const makeComment = (dispatch, onEntity, onID, text, userID) => {
     const comment = {
         onEntity,
         onID: parseInt(onID),
@@ -40,7 +41,7 @@ export const makeComment = async (dispatch, onEntity, onID, text, userID) => {
     });
 };
 
-export const countComments = async (onEntity, onID) => {
+export const countComments = (onEntity, onID) => {
     const q = query(
         collection(db, "comments"),
         where("onEntity", "==", onEntity),
