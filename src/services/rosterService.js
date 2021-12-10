@@ -10,7 +10,9 @@ export const getRostersForCurrentUser = (dispatch) => {
             where("user", "==", auth.currentUser.uid)
         );
         getDocs(q).then((snap) => {
-            const myRosters = snap.docs.map((doc) => doc.data());
+            const myRosters = snap.docs.map((doc) => {
+                return { ...doc.data(), id: doc.id };
+            });
             dispatch({ type: "set-rosters", myRosters });
         });
     } else return null;
