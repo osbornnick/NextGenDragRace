@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getQueenById } from "../../../services/queenService";
+import { setQueenById } from "../../../services/queenService";
 import { useParams } from "react-router-dom";
 import CommentSection from "../../comment";
 
@@ -11,11 +11,11 @@ const Details = (props) => {
     const dispatch = useDispatch();
     const { queen } = useSelector(selectQueen);
     useEffect(() => {
-        getQueenById(dispatch, params.id);
+        setQueenById(dispatch, params.id);
     }, []);
     return (
         <>
-            {JSON.stringify(queen)} 
+            {JSON.stringify(queen)}
             {/* STYLING HERE */}
             {queen ? (
                 <CommentSection parentEntityType="queens" parentId={queen.id} />
