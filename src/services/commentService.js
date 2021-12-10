@@ -39,3 +39,12 @@ export const makeComment = async (dispatch, onEntity, onID, text, userID) => {
         comment,
     });
 };
+
+export const countComments = async (onEntity, onID) => {
+    const q = query(
+        collection(db, "comments"),
+        where("onEntity", "==", onEntity),
+        where("onID", "==", parseInt(onID))
+    );
+    return getDocs(q).then((snap) => snap.size);
+};
