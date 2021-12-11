@@ -78,3 +78,7 @@ export const newRoster = (dispatch, name) => {
     addDoc(doc(db, "rosters"), roster);
     dispatch({ type: "add-roster", roster });
 };
+
+export const deleteRoster = (dispatch, id) => {
+    // must delete subcollections
+};
