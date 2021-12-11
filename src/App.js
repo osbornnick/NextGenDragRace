@@ -4,6 +4,7 @@ import Home from "./components/home";
 import { OtherProfile, MyProfile } from "./components/profile";
 import Details from "./components/details";
 import QueenDetails from "./components/details/queens";
+import RosterDetails from "./components/details/rosters";
 import Navbar from "./components/navigation";
 import Register from "./components/register";
 import { Search, Results, NoSearchTerm } from "./components/search";
@@ -45,6 +46,10 @@ function App() {
                             <Route
                                 path="queens/:id"
                                 element={<QueenDetails />}
+                            />
+                            <Route
+                                path="rosters/:id"
+                                element={<RosterDetails />}
                             />
                         </Route>
                         <Route path="search" element={<Search />}>

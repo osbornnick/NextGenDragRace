@@ -10,6 +10,7 @@ import {
     updateDoc,
     increment,
     deleteDoc,
+    getDoc,
 } from "@firebase/firestore";
 import { getAuth } from "@firebase/auth";
 
@@ -27,6 +28,10 @@ export const getRostersForCurrentUser = (dispatch) => {
             dispatch({ type: "set-rosters", myRosters });
         });
     } else return null;
+};
+
+export const getRoster = (id) => {
+    return getDoc(doc(db, "rosters", id)).then((snap) => snap.data());
 };
 
 export const getRostersQueens = (id) => {
@@ -50,7 +55,7 @@ export const updateRoster = async (dispatch, roster) => {
     dispatch({ type: "update-roster", roster });
 };
 
-export const removeQueenFromRoster = async (dispatch, queen, roster) => {
+export const removeQueenFromRoster = async (queen, roster) => {
     // get queens with higher rank
     const q = query(
         collection(db, `rosters/${roster.id}/queens`),

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { getRostersQueens } from "../../services/rosterService";
+import { getRostersQueens, getRoster } from "../../services/rosterService";
+import { useNavigate } from "react-router";
 
 export const Rosters = (props) => {
     const { rosters } = props;
@@ -23,26 +24,38 @@ export const Rosters = (props) => {
 export const Roster = (props) => {
     const { id } = props;
     const [queens, setQueens] = useState([]);
-    useEffect(() => getRostersQueens(id).then(setQueens), []);
+    const [roster, setRoster] = useState({});
+    useEffect(() => {
+        getRoster(id).then(setRoster);
+        getRostersQueens(id).then(setQueens);
+    }, []);
     return (
-        <ul className="list-group">
-            {queens
-                ? queens.map((queen, i) => (
-                      <li className="list-group-item" key={i}>
-                          {queen.name} {JSON.stringify(queen)}
-                      </li>
-                  ))
-                : ""}
-        </ul>
+        <>
+            <h5>{roster.name}</h5>
+            <ul className="list-group">
+                {queens
+                    ? queens.map((queen, i) => (
+                          <li className="list-group-item" key={i}>
+                              {queen.name} {JSON.stringify(queen)}
+                          </li>
+                      ))
+                    : ""}
+            </ul>
+        </>
     );
 };
 
 export const RosterList = (props) => {
     const { rosters } = props;
+    const navigate = useNavigate();
     return (
         <ul className="list-group">
             {rosters.map((r) => (
-                <li className="list-group-item list-group-item-action" key={r.id}>
+                <li
+                    className="list-group-item  list-group-item-action"
+                    key={r.id}
+                    onClick={() => navigate(`/details/rosters/${r.id}`)}
+                >
                     {r.name}
                 </li>
             ))}

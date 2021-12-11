@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Rosters } from "../roster";
+import { RosterList } from "../roster";
 import { getRostersForCurrentUser } from "../../services/rosterService";
 
 const MyProfile = () => {
@@ -13,7 +13,7 @@ const MyProfile = () => {
             <h1>Profile</h1>
             {JSON.stringify(currentUser)}
             {/* STYLING HERE, ADD FUNCTIONALITY TO EDIT THIS */}
-            <Rosters rosters={myRosters} />
+            <RosterList rosters={myRosters} />
         </>
     );
 };
