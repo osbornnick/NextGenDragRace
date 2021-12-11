@@ -44,7 +44,7 @@ export const Results = () => {
                                   <Result
                                       queen={r}
                                       searchTerm={searchTerm}
-                                      _key={i}
+                                      key={i}
                                   />
                               ))
                             : ""}
@@ -56,7 +56,7 @@ export const Results = () => {
 };
 
 const Result = (props) => {
-    const { queen, searchTerm, _key } = props;
+    const { queen, searchTerm } = props;
     const navigate = useNavigate();
     const handleClick = () => navigate(`/details/queens/${queen.id}`);
     const [numComments, setNumComments] = useState(0);
@@ -70,7 +70,6 @@ const Result = (props) => {
     return (
         <li
             className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-            key={_key}
             onClick={handleClick}
             style={{ cursor: "pointer" }}
         >
@@ -93,7 +92,7 @@ const Result = (props) => {
                 </div>
                 <div>"{queen.quote}"</div>
             </div>
-            <span class="badge bg-primary rounded-pill mx-1">
+            <span className="badge bg-primary rounded-pill mx-1">
                 {numComments}
             </span>
         </li>

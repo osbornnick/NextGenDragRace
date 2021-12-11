@@ -8,13 +8,13 @@ const myRosters = (state = { myRosters: [] }, action) => {
             return { rosters: [...state.myRosters, action.roster] };
         case "delete-roster":
             return {
-                rosters: state.myRosters.filter(
+                myRosters: state.myRosters.filter(
                     (r) => r.id !== action.roster.id
                 ),
             };
         case "update-roster":
             return {
-                rosters: state.myRosters.map((r) =>
+                myRosters: state.myRosters.map((r) =>
                     r.id === action.roster.id ? action.roster : r
                 ),
             };

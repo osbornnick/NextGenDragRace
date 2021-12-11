@@ -12,7 +12,6 @@ import {
     deleteDoc,
 } from "@firebase/firestore";
 import { getAuth } from "@firebase/auth";
-import { getQueenById } from "./queenService";
 
 export const getRostersForCurrentUser = (dispatch) => {
     const auth = getAuth();
@@ -31,18 +30,18 @@ export const getRostersForCurrentUser = (dispatch) => {
 };
 
 export const getRostersQueens = (id) => {
-    return getDocs(collection(db, `rosters/${id}/queens`)).then((snap) =>
-        snap.docs.map((doc) => doc.data())
-    );
+    return getDocs(collection(db, `rosters/${id}/queens`))
+        .then((snap) => snap.docs.map((doc) => doc.data()))
+        .then((data) => data.sort((a, b) => a.rank - b.rank));
 };
 
 export const addQueenToRoster = async (dispatch, queen, roster) => {
-    setDoc(doc(db, `rosters/${roster.id}/queens`, queen.id), {
+    setDoc(doc(db, `rosters/${roster.id}/queens`, `${queen.id}`), {
         ...queen,
-        rank: roster.numQueens + 1,
+        rank: roster.queenCount + 1,
     });
-    updateDoc(doc(db, "rosters", roster.id), { numQueens: increment(1) });
-    roster.numQueens++;
+    updateDoc(doc(db, "rosters", roster.id), { queenCount: increment(1) });
+    roster.queenCount++;
     dispatch({ type: "update-roster", roster });
 };
 

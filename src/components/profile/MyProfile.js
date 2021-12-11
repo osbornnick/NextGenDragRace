@@ -7,7 +7,7 @@ const MyProfile = () => {
     const dispatch = useDispatch();
     const { currentUser } = useSelector((state) => state.currentUser);
     const { myRosters } = useSelector((state) => state.myRosters);
-    useEffect(() => getRostersForCurrentUser(dispatch), []);
+    useEffect(() => getRostersForCurrentUser(dispatch), [currentUser]);
     return (
         <>
             <h1>Profile</h1>
