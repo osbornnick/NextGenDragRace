@@ -7,9 +7,14 @@ const EditRoster = (props) => {
     const { roster } = useSelector((state) => state.roster);
     const [name, setName] = useState(roster.name);
     const [queens, setQueens] = useState(roster.queens);
+    const [queenCount, setQueenCount] = useState(roster.queenCount);
+    const [queensUpdated, setQueensUpdated] = useState(false);
     const dispatch = useDispatch();
     const handleSave = () => {
-        updateRoster(dispatch, { ...roster, name });
+        const r = queensUpdated
+            ? { ...roster, name, queens, queenCount }
+            : { name, id: roster.id };
+        updateRoster(dispatch, r);
         setEditing(false);
     };
     return (
@@ -48,13 +53,15 @@ const EditRoster = (props) => {
                                         color: "red",
                                         cursor: "pointer",
                                     }}
-                                    onClick={() =>
+                                    onClick={() => {
+                                        setQueenCount(queenCount - 1);
                                         setQueens(
                                             queens.filter(
                                                 (q) => q.id !== queen.id
                                             )
-                                        )
-                                    }
+                                        );
+                                        setQueensUpdated(true);
+                                    }}
                                 ></i>
                             </li>
                         ))}

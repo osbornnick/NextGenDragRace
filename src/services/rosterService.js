@@ -43,6 +43,7 @@ export const getRoster = async (dispatch, id) => {
 };
 
 export const getRostersQueens = async (roster) => {
+    console.log(roster);
     const queens = [];
     for (const queen of roster.queens) {
         const qData = await getDoc(queen).then((snap) => {
@@ -64,10 +65,18 @@ export const addQueenToRoster = async (dispatch, queen, roster) => {
     dispatch({ type: "update-roster", roster });
 };
 
-export const updateRoster = async (dispatch, roster) => {
-    updateDoc(doc(db, "rosters", roster.id), { name: roster.name });
+export const updateRoster = (dispatch, roster) => {
+    if (roster.queens) {
+        console.log("mapping queens");
+        roster.queens = roster.queens.map(queenToRef);
+    }
+    updateDoc(doc(db, "rosters", roster.id), roster, { merge: true });
     dispatch({ type: "update-roster", roster });
     dispatch({ type: "update-rosters", roster });
+};
+
+const queenToRef = (queen) => {
+    return doc(db, `queens/${queen.id}`);
 };
 
 export const removeQueenFromRoster = async (dispatch, queen, roster) => {

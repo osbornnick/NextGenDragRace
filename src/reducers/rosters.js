@@ -1,7 +1,6 @@
 const myRosters = (state = { myRosters: [] }, action) => {
     switch (action.type) {
         case "set-rosters":
-            console.log("setting rosters", action.myRosters);
             return {
                 myRosters: action.myRosters,
             };
