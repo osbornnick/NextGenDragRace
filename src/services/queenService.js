@@ -1,3 +1,5 @@
+import { getDoc } from "@firebase/firestore";
+
 const API_URL = "http://www.nokeynoshade.party/api/queens";
 
 export const paginateQueens = async (dispatch, offset) => {
@@ -15,10 +17,16 @@ export const paginateQueens = async (dispatch, offset) => {
         });
 };
 
+export const getQueenByRef = (ref) => {
+    return getDoc(ref).then((snap) => {
+        return { ...snap.data(), id: snap.id };
+    });
+};
+
 // get queen by id
-export const getQueenById = async (dispatch, id) => {
+export const setQueenById = (dispatch, id) => {
     const url = API_URL + "/" + id;
-    fetch(url)
+    return fetch(url)
         .then((res) => res.json())
         .then((data) =>
             dispatch({
@@ -28,8 +36,13 @@ export const getQueenById = async (dispatch, id) => {
         );
 };
 
+export const getQueenById = (id) => {
+    const url = API_URL + "/" + id;
+    return fetch(url).then((res) => res.json());
+};
+
 // GET EVERY QUEEN I GUESS
-export const searchQueens = async (name) => {
+export const searchQueens = (name) => {
     const url = `${API_URL}/all`;
     return fetch(url)
         .then((res) => res.json())

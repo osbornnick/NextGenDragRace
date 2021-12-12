@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getQueenById } from "../../../services/queenService";
+import { setQueenById } from "../../../services/queenService";
 import { useParams } from "react-router-dom";
 import CommentSection from "../../comment";
-import "./queenImage.css";
+import { MyRostersModal } from "../../roster/MyRostersModal";
 
 const selectQueen = (state) => state.queen;
 
-const Details = (props) => {
+const Details = () => {
     const params = useParams();
     const dispatch = useDispatch();
     const { queen } = useSelector(selectQueen);
+    const { currentUser } = useSelector((state) => state.currentUser);
     useEffect(() => {
-        getQueenById(dispatch, params.id);
+        setQueenById(dispatch, params.id);
     }, []);
     if (!queen) return "Loading";
     return (
@@ -21,14 +22,19 @@ const Details = (props) => {
                 <div className="col-md-6 d-flex">
                     <img
                         src={queen.image_url}
-                        className="img-fluid mx-auto col-lg-8 col-12"
+                        className="img-fluid mx-auto col-lg-8 col-12 mb-2"
                         style={{ borderRadius: "10%" }}
                         alt="queens profile"
                     />
                 </div>
                 <div className="col-md-6 d-flex flex-column justify-content-center">
                     <div className="mb-4">
-                        <h1>{queen.name}</h1>
+                        <h1 className="d-flex">
+                            {queen.name}{" "}
+                            <span className="ms-auto">
+                                <AddToRosterButton currentUser={currentUser} />
+                            </span>
+                        </h1>
                         <div className="list-group">
                             <div className="list-group-item d-flex align-items-center">
                                 <i className="fas fa-hand-holding-heart me-2"></i>
@@ -38,12 +44,13 @@ const Details = (props) => {
                             </div>
                         </div>
                     </div>
+
                     <div>
                         <h4>Season appearances & ranking</h4>
                         <ul className="list-group">
-                            {queen.seasons.map((season) => {
+                            {queen.seasons.map((season, i) => {
                                 return (
-                                    <li className="list-group-item">
+                                    <li className="list-group-item" key={i}>
                                         <i className="fas fa-star me-2"></i>
                                         <span>
                                             Season {season.seasonNumber}
@@ -84,21 +91,39 @@ const Details = (props) => {
     );
 };
 
-const episodeMap = (episode) => {
+const AddToRosterButton = (props) => {
+    const { currentUser } = props;
+    if (currentUser)
+        return (
+            <>
+                <button
+                    className="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#rosterModal"
+                >
+                    Add to Roster
+                </button>
+                <MyRostersModal />
+            </>
+        );
+    return "";
+};
+
+const episodeMap = (episode, i) => {
     return (
-        <li className="list-group-item d-flex align-items-center">
+        <li className="list-group-item d-flex align-items-center" key={i}>
             <i className="fas fa-video me-2"></i>
             <span>
-                "{episode.title}" S{episode.seasonId} E{episode.episodeInSeason}{" "}
+                "{episode.title}" S{episode.seasonId} E{episode.episodeInSeason}
                 ({episode.airDate})
             </span>
         </li>
     );
 };
 
-const challengeMap = (challenge) => {
+const challengeMap = (challenge, i) => {
     return (
-        <li className="list-group-item d-flex align-items-center">
+        <li className="list-group-item d-flex align-items-center" key={i}>
             {challenge.description}
             {challenge.won && (
                 <i
