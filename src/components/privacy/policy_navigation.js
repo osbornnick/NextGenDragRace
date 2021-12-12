@@ -1,20 +1,38 @@
 import React from "react";
-import "./privacy.css"
+import "./privacy.css";
 
-const Policy_navigation = () => {
+const PolicyNavigation = () => {
     return (
         <>
-            <div className="list-group policy-nav-board">
-                <a className="list-group-item" href="#collect">
+            <div className="list-group policy-nav-board d-none d-lg-block">
+                <a
+                    className="list-group-item list-group-item-action"
+                    href="#top"
+                >
+                    <i className="fas fa-arrow-up"></i>
+                </a>
+                <a
+                    className="list-group-item list-group-item-action"
+                    href="#collect"
+                >
                     What We collect
                 </a>
-                <a className="list-group-item" href="#use">
+                <a
+                    className="list-group-item list-group-item-action"
+                    href="#use"
+                >
                     Use of Your Information
                 </a>
-                <a className="list-group-item" href="#disclosure">
+                <a
+                    className="list-group-item list-group-item-action"
+                    href="#disclosure"
+                >
                     Disclosure of Your Information
                 </a>
-                <a className="list-group-item" href="#protect">
+                <a
+                    className="list-group-item list-group-item-action"
+                    href="#protect"
+                >
                     How We Protect Your Information
                 </a>
             </div>
@@ -22,4 +40,4 @@ const Policy_navigation = () => {
     );
 };
 
-export default Policy_navigation;
+export default PolicyNavigation;

@@ -51,7 +51,7 @@ const RegistrationCard = (props) => {
                 lastName,
                 handle: firstName.substr(0, 1) + "_" + lastName,
             });
-            navigate("/profile");
+            navigate("/privacy");
         }
     };
     const handleKeyPress = (e) => {

@@ -1,5 +1,5 @@
 import React from "react";
-import Policy_navigation from "./policy_navigation";
+import PolicyNavigation from "./policy_navigation";
 import Intro from "./intro";
 import Collect from "./collect";
 import Use from "./use";
@@ -10,19 +10,18 @@ const Privacy = () => {
     return (
         <>
             <div className="row mt-3">
-                <div className="col-4">
-                    <Policy_navigation/>
+                <div className="col-lg-4">
+                    <PolicyNavigation />
                 </div>
-                <div className="col-8">
-                    <h2>
-                    Drag Homies Privacy Policy
-                    </h2>
+                <div className="col-lg-8">
+                    <a name="top"></a>
+                    <h2>Drag Homies Privacy Policy</h2>
                     <i>Last updated December 5, 2021</i>
-                    <Intro/>
-                    <Collect/>
-                    <Use/>
-                    <Disclosure/>
-                    <Protect/>
+                    <Intro />
+                    <Collect />
+                    <Use />
+                    <Disclosure />
+                    <Protect />
                 </div>
             </div>
         </>
