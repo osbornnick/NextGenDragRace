@@ -94,6 +94,9 @@ export const MyRosterList = (props) => {
     const dispatch = useDispatch();
     return (
         <ul className="list-group">
+            <li className="list-group-item">
+                <h4 className="m-0">My Rosters</h4>
+            </li>
             {rosters.map((r) => (
                 <li
                     className="list-group-item  list-group-item-action"

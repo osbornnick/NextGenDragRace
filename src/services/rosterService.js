@@ -111,3 +111,15 @@ export const deleteRoster = (dispatch, roster) => {
     deleteDoc(doc(db, "rosters", roster.id));
     dispatch({ type: "delete-roster", roster });
 };
+
+export const getUsersRosters = (userID) => {
+    const q = query(collection(db, "rosters"), where("user", "==", userID));
+    return getDocs(q)
+        .then((snap) => snap.docs.map((d) => d.data()))
+        .then(async (data) => {
+            for (const roster of data) {
+                roster.queens = await getRostersQueens(roster);
+            }
+            return data;
+        });
+};

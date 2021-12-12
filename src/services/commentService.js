@@ -49,3 +49,13 @@ export const countComments = (onEntity, onID) => {
     );
     return getDocs(q).then((snap) => snap.size);
 };
+
+export const getUsersComments = (dispatch, userID) => {
+    const q = query(
+        collection(db, "comments"),
+        where("writtenBy", "==", userID)
+    );
+    getDocs(q)
+        .then((snap) => snap.docs.map((d) => d.data()))
+        .then((data) => dispatch({ type: "set-comments", comments: data }));
+};
