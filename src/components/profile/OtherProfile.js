@@ -4,6 +4,7 @@ import { getUserDetails } from "../../services/userService";
 import { getUsersRosters } from "../../services/rosterService";
 import { getUsersComments } from "../../services/commentService";
 import { useDispatch, useSelector } from "react-redux";
+import { CommentSummary } from "../comment";
 
 const OtherProfile = () => {
     const { id } = useParams();
@@ -22,7 +23,8 @@ const OtherProfile = () => {
         <>
             {JSON.stringify(user)}
             {JSON.stringify(rosters)}
-            {JSON.stringify(comments)};
+            {JSON.stringify(comments)}
+            <CommentSummary comments={comments} />
         </>
     );
 };

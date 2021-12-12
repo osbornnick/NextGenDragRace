@@ -152,7 +152,7 @@ const Accordian = (props) => {
                     onClick={() => toggleCaret()}
                 >
                     <h4 className="mb-0">{name}</h4>
-                    <i className={"fas fa-caret-" + caret}></i>
+                    <i className={"fas fa-chevron-" + caret}></i>
                 </li>
                 <div className="collapse" id={name}>
                     {list.map(mapFunction)}

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getCommentsOnEntity } from "../../services/commentService";
 import { getUserDetails } from "../../services/userService";
 import { makeComment } from "../../services/commentService";
+import CommentSummary from "./CommentSummary";
 
 const commentSelector = (state) => state.comments;
 const userSelector = (state) => state.currentUser;
@@ -81,4 +82,5 @@ const Comment = (props) => {
     );
 };
 
+export { CommentSummary };
 export default CommentSection;

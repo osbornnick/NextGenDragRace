@@ -1,16 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { MyRosterList } from "../roster";
 import { getRostersForCurrentUser } from "../../services/rosterService";
 import { useNavigate } from "react-router";
+import { CommentSummary } from "../comment";
+import { getUsersComments } from "../../services/commentService";
+import UserCard from "./UserCard";
 
 const MyProfile = () => {
     const dispatch = useDispatch();
     const { currentUser } = useSelector((state) => state.currentUser);
     const { myRosters } = useSelector((state) => state.myRosters);
-    const [myComments, setMyComments] = useState([]);
     const navigate = useNavigate();
-    useEffect(() => getRostersForCurrentUser(dispatch), [currentUser]);
+    useEffect(() => {
+        getRostersForCurrentUser(dispatch);
+        getUsersComments(dispatch, currentUser && currentUser.id);
+    }, [currentUser]);
     if (!currentUser)
         return (
             <div className="row h-100">
@@ -37,23 +42,15 @@ const MyProfile = () => {
         );
     return (
         <div className="row">
-            <div className="col-6">
-                <div className="d-flex align-items-center mb-2">
-                    <h3 className="pe-2 m-0">@{currentUser.handle}</h3>
-                    {currentUser.verified ? (
-                        <i
-                            className="fas fa-certificate"
-                            style={{ color: "lightblue" }}
-                        ></i>
-                    ) : (
-                        ""
-                    )}
+            <div className="col-lg-6 mb-2">
+                <UserCard user={currentUser} />
+            </div>
+            <div className="col-lg-6">
+                <div className="mb-2">
+                    <MyRosterList rosters={myRosters} />
                 </div>
+                <CommentSummary />
             </div>
-            <div className="col-6">
-                <MyRosterList rosters={myRosters} />
-            </div>
-            {/* STYLING HERE, ADD FUNCTIONALITY TO EDIT THIS */}
         </div>
     );
 };

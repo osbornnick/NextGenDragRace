@@ -56,6 +56,10 @@ export const getUsersComments = (dispatch, userID) => {
         where("writtenBy", "==", userID)
     );
     getDocs(q)
-        .then((snap) => snap.docs.map((d) => d.data()))
+        .then((snap) =>
+            snap.docs.map((d) => {
+                return { ...d.data(), id: d.id };
+            })
+        )
         .then((data) => dispatch({ type: "set-comments", comments: data }));
 };
