@@ -18,6 +18,7 @@ import comments from "./reducers/comments.js";
 import UserListener from "./components/UserListener";
 import rosters from "./reducers/rosters";
 import roster from "./reducers/roster";
+import Privacy from "./components/privacy";
 
 const reducer = combineReducers({
     queens,
@@ -40,6 +41,7 @@ function App() {
                 <div className="container vh-100 d-flex flex-column">
                     <Navbar />
                     <Routes>
+                        <Route path="/privacy" element={<Privacy />} />
                         <Route path="/home" element={<Home />} />
                         <Route path="login" element={<Login />} />
                         <Route path="profile" element={<MyProfile />} />
