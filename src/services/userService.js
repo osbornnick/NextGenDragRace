@@ -23,10 +23,11 @@ export const createUser = async (email, password) => {
         });
 };
 
-export const updateCurrentUser = async (obj) => {
+export const updateCurrentUser = async (dispatch, user) => {
     const auth = getAuth();
     if (auth.currentUser) {
-        return setDoc(doc(db, "users", auth.currentUser.uid), obj, {
+        dispatch({ type: "update-user", currentUser: user });
+        return setDoc(doc(db, "users", auth.currentUser.uid), user, {
             merge: true,
         });
     } else {

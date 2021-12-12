@@ -53,13 +53,12 @@ const Login = () => {
                     <input
                         type="email"
                         className="form-control"
-                        id="exampleInputEmail1"
-                        aria-describedby="emailHelp"
+                        id="exampleInputEmail"
                         onChange={(e) => setUsername(e.target.value)}
                         onKeyPress={handleKeyPress}
                         placeholder="a"
                     />
-                    <label htmlFor="exampleInputEmail1" className="form-label">
+                    <label htmlFor="exampleInputEmail" className="form-label">
                         Email address
                     </label>
                 </div>
