@@ -31,12 +31,18 @@ export const getRostersForCurrentUser = (dispatch) => {
 };
 
 export const getRoster = (id) => {
-    return getDoc(doc(db, "rosters", id)).then((snap) => snap.data());
+    return getDoc(doc(db, "rosters", id)).then((snap) => {
+        return { ...snap.data(), id: snap.id };
+    });
 };
 
 export const getRostersQueens = (id) => {
     return getDocs(collection(db, `rosters/${id}/queens`))
-        .then((snap) => snap.docs.map((doc) => doc.data()))
+        .then((snap) =>
+            snap.docs.map((doc) => {
+                return { ...doc.data(), id: doc.id };
+            })
+        )
         .then((data) => data.sort((a, b) => a.rank - b.rank));
 };
 

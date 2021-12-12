@@ -4,9 +4,11 @@ import { Roster } from "../../roster";
 const Details = (props) => {
     const { id } = useParams();
     return (
-        <>
-            <Roster id={id} />
-        </>
+        <div className="row">
+            <div className="col d-flex justify-content-center">
+                <Roster id={id} />
+            </div>
+        </div>
     );
 };
 
