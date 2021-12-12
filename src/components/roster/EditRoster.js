@@ -5,6 +5,7 @@ import { updateRoster } from "../../services/rosterService";
 const EditRoster = (props) => {
     const { setEditing } = props;
     const { roster } = useSelector((state) => state.roster);
+    const { currentUser } = useSelector((state) => state.currentUser);
     const [name, setName] = useState(roster.name);
     const [queens, setQueens] = useState(roster.queens);
     const [queenCount, setQueenCount] = useState(roster.queenCount);
@@ -17,6 +18,7 @@ const EditRoster = (props) => {
         updateRoster(dispatch, r);
         setEditing(false);
     };
+    if (!currentUser) setEditing(false);
     return (
         <div className="card" style={{ width: "40rem" }}>
             <div className="card-body">
