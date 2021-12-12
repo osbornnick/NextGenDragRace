@@ -6,6 +6,7 @@ import Details from "./components/details";
 import QueenDetails from "./components/details/queens";
 import RosterDetails from "./components/details/rosters";
 import Navbar from "./components/navigation";
+import Footer from "./components/footer";
 import Register from "./components/register";
 import { Search, Results, NoSearchTerm } from "./components/search";
 import { Provider } from "react-redux";
@@ -34,7 +35,7 @@ function App() {
         <Provider store={store}>
             <BrowserRouter>
                 <UserListener />
-                <div className="container">
+                <div className="container vh-100 d-flex flex-column">
                     <Navbar />
                     <Routes>
                         <Route path="/home" element={<Home />} />
@@ -58,6 +59,7 @@ function App() {
                         </Route>
                         <Route path="*" element={<Home />} />
                     </Routes>
+                    <Footer />
                 </div>
             </BrowserRouter>
         </Provider>

@@ -38,7 +38,7 @@ const RosterList = (props) => {
         <ul className="list-group-flush p-0">
             {rosters.map((r) => (
                 <li
-                    className="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                    className="list-group-item list-group-item-action d-flex justify-content-between align-items-center fs-5"
                     key={r.id}
                     data-bs-dismiss="modal"
                     onClick={() => handleClick(r)}
