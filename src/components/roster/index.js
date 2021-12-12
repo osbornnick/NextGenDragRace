@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getRoster } from "../../services/rosterService";
+import { getRoster, newRoster } from "../../services/rosterService";
 import { useNavigate } from "react-router";
 import EditRoster from "./EditRoster";
 import { useSelector, useDispatch } from "react-redux";
@@ -84,6 +84,33 @@ export const RosterList = (props) => {
                     {r.name}
                 </li>
             ))}
+        </ul>
+    );
+};
+
+export const MyRosterList = (props) => {
+    const { rosters } = props;
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    return (
+        <ul className="list-group">
+            {rosters.map((r) => (
+                <li
+                    className="list-group-item  list-group-item-action"
+                    key={r.id}
+                    onClick={() => navigate(`/details/rosters/${r.id}`)}
+                >
+                    {r.name}
+                </li>
+            ))}
+            <li className="list-group-item text-center">
+                <button
+                    className="btn btn-primary"
+                    onClick={() => newRoster(dispatch)}
+                >
+                    New Roster
+                </button>
+            </li>
         </ul>
     );
 };

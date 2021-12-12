@@ -79,7 +79,7 @@ const LoginOrLogout = (props) => {
         return (
             <button
                 type="button"
-                className="btn btn-danger me-2"
+                className="btn btn-warning me-2"
                 onClick={() => logout()}
             >
                 Logout

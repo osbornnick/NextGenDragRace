@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateRoster } from "../../services/rosterService";
+import { updateRoster, deleteRoster } from "../../services/rosterService";
+import { useNavigate } from "react-router";
 
 const EditRoster = (props) => {
     const { setEditing } = props;
@@ -11,6 +12,7 @@ const EditRoster = (props) => {
     const [queenCount, setQueenCount] = useState(roster.queenCount);
     const [queensUpdated, setQueensUpdated] = useState(false);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleSave = () => {
         const r = queensUpdated
             ? { ...roster, name, queens, queenCount }
@@ -70,6 +72,17 @@ const EditRoster = (props) => {
                     </ul>
                     <div className="text-muted text-center">
                         Add new queens from their details page
+                    </div>
+                    <div className="d-flex">
+                        <button
+                            className="btn btn-danger ms-auto"
+                            onClick={() => {
+                                deleteRoster(dispatch, roster);
+                                navigate("/profile");
+                            }}
+                        >
+                            Delete
+                        </button>
                     </div>
                 </div>
             </div>
