@@ -13,7 +13,7 @@ const OtherProfile = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        getUserDetails(id).then((u) => setUser(u));
+        getUserDetails(id).then(setUser);
         getUsersRosters(id).then(setRosters);
         getUsersComments(dispatch, id);
     }, []);
