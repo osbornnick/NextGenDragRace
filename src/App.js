@@ -41,8 +41,8 @@ function App() {
                 <div className="container vh-100 d-flex flex-column">
                     <Navbar />
                     <Routes>
-                        <Route path="/privacy" element={<Privacy />} />
-                        <Route path="/home" element={<Home />} />
+                        <Route path="privacy" element={<Privacy />} />
+                        <Route path="home" element={<Home />} />
                         <Route path="login" element={<Login />} />
                         <Route path="profile" element={<MyProfile />} />
                         <Route path="profile/:id" element={<OtherProfile />} />
