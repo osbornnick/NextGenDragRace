@@ -99,11 +99,12 @@ export const MyRosterList = (props) => {
             </li>
             {rosters.map((r) => (
                 <li
-                    className="list-group-item  list-group-item-action"
+                    className="list-group-item  list-group-item-action d-flex align-items-center"
                     key={r.id}
                     onClick={() => navigate(`/details/rosters/${r.id}`)}
                 >
                     {r.name}
+                    <i className="far fa-arrow-alt-circle-right ms-auto"></i>
                 </li>
             ))}
             <li className="list-group-item text-center">
