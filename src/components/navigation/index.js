@@ -36,6 +36,7 @@ const Navbar = (props) => {
                     </ul>
                     <Search />
                     <LoginOrLogout user={currentUser} />
+                    {currentUser ? <>@{currentUser.handle}</> : ""}
                 </div>
             </div>
         </nav>
