@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateRoster } from "../../services/rosterService";
 
 const EditRoster = (props) => {
-    const { roster, setEditing, queens, setRoster } = props;
+    const { setEditing } = props;
+    const { roster } = useSelector((state) => state.roster);
     const [name, setName] = useState(roster.name);
-    const [currentQueens, setCurrentQueens] = useState(queens);
+    const [queens, setQueens] = useState(roster.queens);
     const dispatch = useDispatch();
     const handleSave = () => {
         updateRoster(dispatch, { ...roster, name });
-        setRoster({ ...roster, name });
         setEditing(false);
     };
     return (
@@ -39,27 +39,25 @@ const EditRoster = (props) => {
                 </div>
                 <div className="card-text">
                     <ul className="list-group list-group-flush rounded mb-2">
-                        {currentQueens
-                            ? currentQueens.map((queen, i) => (
-                                  <li className="list-group-item" key={i}>
-                                      {queen.name}
-                                      <i
-                                          className="fas fa-times fa-pull-right"
-                                          style={{
-                                              color: "red",
-                                              cursor: "pointer",
-                                          }}
-                                          onClick={() =>
-                                              setCurrentQueens(
-                                                  currentQueens.filter(
-                                                      (q) => q.id !== queen.id
-                                                  )
-                                              )
-                                          }
-                                      ></i>
-                                  </li>
-                              ))
-                            : ""}
+                        {queens.map((queen, i) => (
+                            <li className="list-group-item" key={i}>
+                                {queen.name}
+                                <i
+                                    className="fas fa-times fa-pull-right"
+                                    style={{
+                                        color: "red",
+                                        cursor: "pointer",
+                                    }}
+                                    onClick={() =>
+                                        setQueens(
+                                            queens.filter(
+                                                (q) => q.id !== queen.id
+                                            )
+                                        )
+                                    }
+                                ></i>
+                            </li>
+                        ))}
                     </ul>
                     <div className="text-muted text-center">
                         Add new queens from their details page

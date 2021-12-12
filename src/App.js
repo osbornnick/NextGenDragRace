@@ -17,6 +17,7 @@ import currentUser from "./reducers/currentUser.js";
 import comments from "./reducers/comments.js";
 import UserListener from "./components/UserListener";
 import rosters from "./reducers/rosters";
+import roster from "./reducers/roster";
 
 const reducer = combineReducers({
     queens,
@@ -24,6 +25,7 @@ const reducer = combineReducers({
     currentUser,
     comments,
     myRosters: rosters,
+    roster,
 });
 const store = createStore(
     reducer,

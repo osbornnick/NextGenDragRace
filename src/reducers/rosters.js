@@ -1,18 +1,19 @@
 const myRosters = (state = { myRosters: [] }, action) => {
     switch (action.type) {
         case "set-rosters":
+            console.log("setting rosters", action.myRosters);
             return {
                 myRosters: action.myRosters,
             };
         case "add-roster":
-            return { rosters: [...state.myRosters, action.roster] };
+            return { myRosters: [...state.myRosters, action.roster] };
         case "delete-roster":
             return {
                 myRosters: state.myRosters.filter(
                     (r) => r.id !== action.roster.id
                 ),
             };
-        case "update-roster":
+        case "update-rosters":
             return {
                 myRosters: state.myRosters.map((r) =>
                     r.id === action.roster.id ? action.roster : r

@@ -5,73 +5,80 @@ import {
     query,
     where,
     doc,
-    setDoc,
+    arrayUnion,
     addDoc,
     updateDoc,
     increment,
-    deleteDoc,
+    arrayRemove,
     getDoc,
 } from "@firebase/firestore";
 import { getAuth } from "@firebase/auth";
 
-export const getRostersForCurrentUser = (dispatch) => {
+export const getRostersForCurrentUser = async (dispatch) => {
     const auth = getAuth();
     if (auth.currentUser) {
         const q = query(
             collection(db, "rosters"),
             where("user", "==", auth.currentUser.uid)
         );
-        getDocs(q).then((snap) => {
-            const myRosters = snap.docs.map((doc) => {
+        const myRosters = await getDocs(q).then((snap) => {
+            return snap.docs.map((doc) => {
                 return { ...doc.data(), id: doc.id };
             });
-            dispatch({ type: "set-rosters", myRosters });
         });
+        for (const roster of myRosters) {
+            roster.queens = await getRostersQueens(roster);
+        }
+        dispatch({ type: "set-rosters", myRosters });
     } else return null;
 };
 
-export const getRoster = (id) => {
-    return getDoc(doc(db, "rosters", id)).then((snap) => {
+export const getRoster = async (dispatch, id) => {
+    let roster = await getDoc(doc(db, "rosters", id)).then((snap) => {
         return { ...snap.data(), id: snap.id };
     });
+    let queens = await getRostersQueens(roster);
+    roster = { ...roster, queens };
+    dispatch({ type: "set-roster", roster });
 };
 
-export const getRostersQueens = (id) => {
-    return getDocs(collection(db, `rosters/${id}/queens`))
-        .then((snap) =>
-            snap.docs.map((doc) => {
-                return { ...doc.data(), id: doc.id };
-            })
-        )
-        .then((data) => data.sort((a, b) => a.rank - b.rank));
+export const getRostersQueens = async (roster) => {
+    const queens = [];
+    for (const queen of roster.queens) {
+        const qData = await getDoc(queen).then((snap) => {
+            return { ...snap.data(), id: snap.id };
+        });
+        queens.push(qData);
+    }
+    return queens;
 };
 
 export const addQueenToRoster = async (dispatch, queen, roster) => {
-    setDoc(doc(db, `rosters/${roster.id}/queens`, `${queen.id}`), {
-        ...queen,
-        rank: roster.queenCount + 1,
+    const queenRef = doc(db, `queens/${queen.id}`);
+    updateDoc(doc(db, "rosters", roster.id), {
+        queenCount: increment(1),
+        queens: arrayUnion(queenRef),
     });
-    updateDoc(doc(db, "rosters", roster.id), { queenCount: increment(1) });
     roster.queenCount++;
+    roster.queens.push(queen);
     dispatch({ type: "update-roster", roster });
 };
 
 export const updateRoster = async (dispatch, roster) => {
     updateDoc(doc(db, "rosters", roster.id), { name: roster.name });
     dispatch({ type: "update-roster", roster });
+    dispatch({ type: "update-rosters", roster });
 };
 
-export const removeQueenFromRoster = async (queen, roster) => {
-    // get queens with higher rank
-    const q = query(
-        collection(db, `rosters/${roster.id}/queens`),
-        where("rank", ">", queen.rank)
-    );
-    const queenSnap = await getDocs(q);
-    // decrease rank of queens with higher rank
-    queenSnap.forEach((q) => updateDoc(q.ref, { rank: increment(-1) }));
-    // remove queen from this roster object
-    deleteDoc(doc(db, `rosters/${roster.id}/queens`, queen.id));
+export const removeQueenFromRoster = async (dispatch, queen, roster) => {
+    const queenRef = doc(db, `queens/${queen.id}`);
+    updateDoc(doc(db, "rosters", roster.id), {
+        queenCount: increment(-1),
+        queens: arrayRemove(queenRef),
+    });
+    roster.queenCount--;
+    roster.queens.filter((q) => q.id !== queen.id);
+    dispatch({ type: "update-roster", roster });
 };
 
 export const newRoster = (dispatch, name) => {
@@ -80,6 +87,7 @@ export const newRoster = (dispatch, name) => {
         name,
         queenCount: 0,
         user: auth.currentUser.uid,
+        queens: [],
     };
     addDoc(doc(db, "rosters"), roster);
     dispatch({ type: "add-roster", roster });

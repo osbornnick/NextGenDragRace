@@ -1,4 +1,4 @@
-const currentUser = (state = { user: null }, action) => {
+const currentUser = (state = { currentUser: null }, action) => {
     switch (action.type) {
         case "login":
             return {

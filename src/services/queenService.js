@@ -1,3 +1,5 @@
+import { getDoc } from "@firebase/firestore";
+
 const API_URL = "http://www.nokeynoshade.party/api/queens";
 
 export const paginateQueens = async (dispatch, offset) => {
@@ -13,6 +15,12 @@ export const paginateQueens = async (dispatch, offset) => {
         .then((data) => {
             dispatch({ type: "set-queens", queens: data });
         });
+};
+
+export const getQueenByRef = (ref) => {
+    return getDoc(ref).then((snap) => {
+        return { ...snap.data(), id: snap.id };
+    });
 };
 
 // get queen by id

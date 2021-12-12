@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { getRostersQueens, getRoster } from "../../services/rosterService";
+import { getRoster } from "../../services/rosterService";
 import { useNavigate } from "react-router";
 import EditRoster from "./EditRoster";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 export const Rosters = (props) => {
     const { rosters } = props;
@@ -25,24 +25,15 @@ export const Rosters = (props) => {
 
 export const Roster = (props) => {
     const { id } = props;
-    const [queens, setQueens] = useState([]);
-    const [roster, setRoster] = useState({});
-    const [editing, setEditing] = useState(false);
+    const { roster } = useSelector((state) => state.roster);
     const { currentUser } = useSelector((state) => state.currentUser);
+    const [editing, setEditing] = useState(false);
+    useEffect(() => getRoster(dispatch, id), [id]);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    useEffect(() => {
-        getRoster(id).then(setRoster);
-        getRostersQueens(id).then(setQueens);
-    }, []);
-    if (editing)
-        return (
-            <EditRoster
-                roster={roster}
-                setEditing={setEditing}
-                queens={queens}
-                setRoster={setRoster}
-            />
-        );
+    if (!roster) return "loading";
+    if (editing) return <EditRoster roster={roster} setEditing={setEditing} />;
+
     return (
         <div className="card" style={{ width: "40rem" }}>
             <div className="card-body">
@@ -61,21 +52,17 @@ export const Roster = (props) => {
                 </div>
                 <div className="card-text">
                     <ul className="list-group list-group-flush rounded">
-                        {queens
-                            ? queens.map((queen, i) => (
-                                  <li
-                                      className="list-group-item list-group-item-action"
-                                      onClick={() =>
-                                          navigate(
-                                              `/details/queens/${queen.id}`
-                                          )
-                                      }
-                                      key={i}
-                                  >
-                                      {queen.name}
-                                  </li>
-                              ))
-                            : ""}
+                        {roster.queens.map((queen, i) => (
+                            <li
+                                className="list-group-item list-group-item-action"
+                                onClick={() =>
+                                    navigate(`/details/queens/${queen.id}`)
+                                }
+                                key={i}
+                            >
+                                {queen.name}
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>
