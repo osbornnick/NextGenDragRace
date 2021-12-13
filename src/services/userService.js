@@ -4,7 +4,17 @@ import {
     signInWithEmailAndPassword,
     signOut,
 } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import {
+    doc,
+    getDoc,
+    setDoc,
+    query,
+    limit,
+    orderBy,
+    collection,
+    Timestamp,
+    getDocs,
+} from "firebase/firestore";
 import { db, app } from "./initialize_firebase.js";
 const auth = getAuth();
 
@@ -15,6 +25,7 @@ export const createUser = async (email, password) => {
             setDoc(doc(db, "users", user.uid), {
                 type: "standard",
                 verified: false,
+                dateJoined: Timestamp().now(),
             });
             return 200;
         })
@@ -58,4 +69,16 @@ export const getUserDetails = async (id) => {
     if (docSnap.exists()) {
         return { ...docSnap.data(), id: docSnap.id };
     } else return null;
+};
+
+export const getNewestUser = () => {
+    const q = query(
+        collection(db, "users"),
+        orderBy("dateJoined", "desc"),
+        limit(1)
+    );
+    return getDocs(q).then((snap) => {
+        const ref = snap.docs.at(0);
+        return { ...ref.data(), id: ref.id };
+    });
 };
