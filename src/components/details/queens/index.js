@@ -4,6 +4,7 @@ import { setQueenById } from "../../../services/queenService";
 import { useParams } from "react-router-dom";
 import CommentSection from "../../comment";
 import { MyRostersModal } from "../../roster/MyRostersModal";
+import Accordian from "../../utils/Accordian";
 
 const selectQueen = (state) => state.queen;
 
@@ -132,33 +133,6 @@ const challengeMap = (challenge, i) => {
                 ></i>
             )}
         </li>
-    );
-};
-
-const Accordian = (props) => {
-    const { name, list, mapFunction } = props;
-    const [caret, setCaret] = useState("down");
-    const toggleCaret = () => {
-        setCaret(caret === "down" ? "up" : "down");
-    };
-    return (
-        <>
-            <ul className="list-group">
-                <li
-                    className="list-group-item list-group-item-action d-flex align-items-center justify-content-between"
-                    role="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target={"#" + name}
-                    onClick={() => toggleCaret()}
-                >
-                    <h4 className="mb-0">{name}</h4>
-                    <i className={"fas fa-chevron-" + caret}></i>
-                </li>
-                <div className="collapse" id={name}>
-                    {list.map(mapFunction)}
-                </div>
-            </ul>
-        </>
     );
 };
 
