@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { logout } from "../../services/userService.js";
 import { useSelector } from "react-redux";
 
-const Navbar = (props) => {
+const Navbar = () => {
     const { currentUser } = useSelector((state) => state.currentUser);
     return (
         <nav className="navbar navbar-expand-lg navbar-dark">
@@ -31,11 +31,11 @@ const Navbar = (props) => {
                                 Profile
                             </Link>
                         </li>
-                        {/* <li className="nav-item"></li>
-                        <li className="nav-item"></li> */}
                     </ul>
                     <Search />
-                    <LoginOrLogout user={currentUser} />
+                    <div className="mt-1 mt-lg-0">
+                        <LoginOrLogout user={currentUser} />
+                    </div>
                     {currentUser ? <>@{currentUser.handle}</> : ""}
                 </div>
             </div>
