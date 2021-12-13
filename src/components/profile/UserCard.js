@@ -1,4 +1,9 @@
+import { getAuth } from "@firebase/auth";
+
 const UserCard = (props) => {
+    const auth = getAuth();
+    console.log(auth.currentUser);
+
     const { user } = props;
     const fullName =
         (user.firstName || user.lastName) &&
@@ -19,6 +24,9 @@ const UserCard = (props) => {
                 </h5>
                 {fullName ? <p>{fullName}</p> : ""}
                 <p className="card-text">{user.bio}</p>
+                <p className="text-muted">
+                    Last login at: {auth.currentUser.metadata.lastSignInTime}
+                </p>
             </div>
         </div>
     );

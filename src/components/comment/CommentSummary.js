@@ -7,6 +7,7 @@ const CommentSummary = (props) => {
     const navigate = useNavigate();
     const { comments } = useSelector((state) => state.comments);
     if (!comments) return "Loading...";
+    comments.sort((a, b) => b.dateCreated.seconds - a.dateCreated.seconds);
     return (
         <ul className="list-group">
             <li className="list-group-item">
@@ -19,6 +20,7 @@ const CommentSummary = (props) => {
                     onClick={() =>
                         navigate(`/details/${comment.onEntity}/${comment.onID}`)
                     }
+                    style={{ cursor: "pointer" }}
                 >
                     <div>
                         {comment.text}

@@ -25,7 +25,8 @@ export const createUser = async (email, password) => {
             setDoc(doc(db, "users", user.uid), {
                 type: "standard",
                 verified: false,
-                dateJoined: Timestamp().now(),
+                dateJoined: Timestamp.now(),
+                bio: "",
             });
             return 200;
         })

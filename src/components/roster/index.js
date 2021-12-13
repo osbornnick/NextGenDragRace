@@ -59,6 +59,7 @@ export const Roster = (props) => {
                                     navigate(`/details/queens/${queen.id}`)
                                 }
                                 key={i}
+                                style={{ cursor: "pointer" }}
                             >
                                 {queen.name}
                             </li>
@@ -83,6 +84,7 @@ export const RosterList = (props) => {
                     className="list-group-item list-group-item-action d-flex"
                     key={r.id}
                     onClick={() => navigate(`/details/rosters/${r.id}`)}
+                    style={{ cursor: "pointer" }}
                 >
                     {r.name}
                     <i className="far fa-arrow-alt-circle-right ms-auto"></i>
@@ -106,6 +108,7 @@ export const MyRosterList = (props) => {
                     className="list-group-item  list-group-item-action d-flex align-items-center"
                     key={r.id}
                     onClick={() => navigate(`/details/rosters/${r.id}`)}
+                    style={{ cursor: "pointer" }}
                 >
                     {r.name}
                     <i className="far fa-arrow-alt-circle-right ms-auto"></i>

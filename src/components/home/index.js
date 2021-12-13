@@ -66,6 +66,7 @@ const Seasons = () => {
             className="list-group-item list-group-item-action d-flex align-items-center"
             key={queen.id}
             onClick={() => navigate(`/details/queens/${queen.id}`)}
+            style={{ cursor: "pointer" }}
         >
             {queen.place} {queen.name}{" "}
             {queen.place === 1 && (

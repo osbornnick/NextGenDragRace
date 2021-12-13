@@ -34,6 +34,12 @@ const RosterList = (props) => {
             roster
         );
     };
+    if (rosters.length < 1)
+        return (
+            <p className="fs-6 fw-normal p-2 text-center">
+                Add a roster from your profile!
+            </p>
+        );
     return (
         <ul className="list-group-flush p-0">
             {rosters.map((r) => (

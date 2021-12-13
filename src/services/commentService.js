@@ -44,6 +44,7 @@ export const makeComment = (dispatch, onEntity, onID, text, userID) => {
         dateCreated: Timestamp.now(),
         isDeleted: false,
     };
+    console.log(comment);
     addDoc(collection(db, "comments"), comment);
     dispatch({
         type: "add-comment",

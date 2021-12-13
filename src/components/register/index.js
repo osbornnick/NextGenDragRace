@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { createUser, updateCurrentUser } from "../../services/userService";
 import { useNavigate } from "react-router";
 import loadingImage from "../../svg/loading.svg";
+import { useDispatch } from "react-redux";
 
 const Register = (props) => {
     return (
@@ -20,6 +21,7 @@ const Register = (props) => {
 
 const RegistrationCard = (props) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [handle, setHandle] = useState("");
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
@@ -47,11 +49,13 @@ const RegistrationCard = (props) => {
                 setErrorMessage("Please try again");
             } else if (code === 200) {
                 success = true;
+            } else {
+                console.log(code);
             }
         });
         setLoading(false);
         if (success) {
-            updateCurrentUser({
+            updateCurrentUser(dispatch, {
                 firstName,
                 lastName,
                 handle,
