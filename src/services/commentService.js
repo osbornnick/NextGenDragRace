@@ -53,7 +53,8 @@ export const countComments = (onEntity, onID) => {
 export const getUsersComments = (dispatch, userID) => {
     const q = query(
         collection(db, "comments"),
-        where("writtenBy", "==", userID)
+        where("writtenBy", "==", userID),
+        orderBy("dateCreated", "asc")
     );
     getDocs(q)
         .then((snap) =>
