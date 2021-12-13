@@ -7,6 +7,8 @@ import {
     addDoc,
     orderBy,
     Timestamp,
+    updateDoc,
+    doc,
 } from "firebase/firestore";
 
 export const getCommentsOnEntity = (dispatch, entityType, entityId) => {
@@ -17,13 +19,20 @@ export const getCommentsOnEntity = (dispatch, entityType, entityId) => {
         orderBy("dateCreated", "desc")
     );
     return getDocs(q).then((querySnapshot) => {
-        const comments = querySnapshot.docs.map((doc) => doc.data());
+        const comments = querySnapshot.docs.map((doc) => {
+            return { ...doc.data(), id: doc.id };
+        });
         dispatch({
             type: "set-comments",
             comments,
         });
         return comments;
     });
+};
+
+export const deleteComment = (dispatch, commentId) => {
+    updateDoc(doc(db, "comments", commentId), { isDeleted: true });
+    dispatch({ type: "delete-comment", delete: commentId });
 };
 
 export const makeComment = (dispatch, onEntity, onID, text, userID) => {
@@ -33,6 +42,7 @@ export const makeComment = (dispatch, onEntity, onID, text, userID) => {
         text,
         writtenBy: userID,
         dateCreated: Timestamp.now(),
+        isDeleted: false,
     };
     addDoc(collection(db, "comments"), comment);
     dispatch({
