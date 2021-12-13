@@ -3,14 +3,15 @@ import { useParams } from "react-router";
 import { getUserDetails } from "../../services/userService";
 import { getUsersRosters } from "../../services/rosterService";
 import { getUsersComments } from "../../services/commentService";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { CommentSummary } from "../comment";
+import UserCard from "./UserCard";
+import { RosterList } from "../roster";
 
 const OtherProfile = () => {
     const { id } = useParams();
     const [user, setUser] = useState(null);
     const [rosters, setRosters] = useState([]);
-    const { comments } = useSelector((state) => state.comments);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -20,12 +21,17 @@ const OtherProfile = () => {
     }, []);
     if (!user) return "Loading...";
     return (
-        <>
-            {JSON.stringify(user)}
-            {JSON.stringify(rosters)}
-            {JSON.stringify(comments)}
-            <CommentSummary comments={comments} />
-        </>
+        <div className="row">
+            <div className="col-lg-6 mb-2">
+                <UserCard user={user} />
+            </div>
+            <div className="col-lg-6">
+                <div className="mb-2">
+                    <RosterList rosters={rosters} />
+                </div>
+                <CommentSummary />
+            </div>
+        </div>
     );
 };
 

@@ -75,13 +75,17 @@ export const RosterList = (props) => {
     const navigate = useNavigate();
     return (
         <ul className="list-group">
+            <li className="list-group-item">
+                <h5 className="mb-0">Rosters</h5>
+            </li>
             {rosters.map((r) => (
                 <li
-                    className="list-group-item  list-group-item-action"
+                    className="list-group-item list-group-item-action d-flex"
                     key={r.id}
                     onClick={() => navigate(`/details/rosters/${r.id}`)}
                 >
                     {r.name}
+                    <i className="far fa-arrow-alt-circle-right ms-auto"></i>
                 </li>
             ))}
         </ul>
