@@ -8,17 +8,21 @@ import { useNavigate } from "react-router";
 import { getNewestUser } from "../../services/userService";
 import { DateTime } from "luxon";
 import { Link } from "react-router-dom";
+import { CommentSummary } from "../comment";
+import { getUsersComments } from "../../services/commentService";
 const selectQueens = (state) => state.queens;
 
 const Home = () => {
     const dispatch = useDispatch();
     const { queens } = useSelector(selectQueens);
+    const { currentUser } = useSelector((state) => state.currentUser);
     const [newestUser, setNewestUser] = useState();
 
     useEffect(() => {
         paginateQueens(dispatch, 0);
         getNewestUser().then(setNewestUser);
-    }, []);
+        getUsersComments(dispatch, currentUser && currentUser.id);
+    }, [currentUser]);
     return (
         <div className="container">
             <div className="row">
@@ -31,7 +35,12 @@ const Home = () => {
                         Want to create your own dream team of queens? Register
                         up above and join the kiki!
                     </p>
-                    {newestUser && <WelcomeNewestUser user={newestUser} />}
+                    <div className="mb-2">
+                        {newestUser && <WelcomeNewestUser user={newestUser} />}
+                    </div>
+                    {currentUser && (
+                        <CommentSummary title={"Your Recent Comments"} />
+                    )}
                 </div>
                 <div className="col-xl-6">
                     <h3>Queens by Season</h3>

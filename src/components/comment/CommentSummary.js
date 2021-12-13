@@ -1,14 +1,16 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { DateTime } from "luxon";
 
-const CommentSummary = () => {
+const CommentSummary = (props) => {
+    const { title } = props;
     const navigate = useNavigate();
     const { comments } = useSelector((state) => state.comments);
     if (!comments) return "Loading...";
     return (
         <ul className="list-group">
             <li className="list-group-item">
-                <h5 className="m-0">Comments</h5>
+                <h5 className="m-0">{title || "Comments"}</h5>
             </li>
             {comments.map((comment) => (
                 <li
@@ -18,7 +20,14 @@ const CommentSummary = () => {
                         navigate(`/details/${comment.onEntity}/${comment.onID}`)
                     }
                 >
-                    {comment.text}
+                    <div>
+                        {comment.text}
+                        <div className="text-muted">
+                            {DateTime.fromSeconds(
+                                comment.dateCreated.seconds
+                            ).toRelative()}
+                        </div>
+                    </div>
                     <i className="far fa-arrow-alt-circle-right ms-auto"></i>
                 </li>
             ))}
