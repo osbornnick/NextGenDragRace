@@ -49,7 +49,7 @@ const MyProfile = () => {
                     <EditUser setEditing={setEditing} />
                 ) : (
                     <>
-                        <UserCard user={currentUser} />
+                        <UserCard user={currentUser} ownProfile />
                         <div className="d-flex justify-content-center align-items-center">
                             <button
                                 className="btn btn-danger m-2"

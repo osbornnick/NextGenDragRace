@@ -7,6 +7,7 @@ import {
 } from "../../services/commentService";
 import { getUserDetails } from "../../services/userService";
 import CommentSummary from "./CommentSummary";
+import { useNavigate } from "react-router";
 
 const commentSelector = (state) => state.comments;
 const userSelector = (state) => state.currentUser;
@@ -71,6 +72,7 @@ const Comment = (props) => {
     const { comment } = props;
     const [author, setAuthor] = useState(null);
     const { currentUser } = useSelector(userSelector);
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
         getUserDetails(comment.writtenBy).then(setAuthor);
@@ -85,7 +87,10 @@ const Comment = (props) => {
             key={comment.id}
         >
             <div>
-                <div>
+                <div
+                    onClick={() => navigate("/profile/" + author.id)}
+                    style={{ cursor: "pointer" }}
+                >
                     @{author ? author.handle : ""} -{" "}
                     <span style={{ opacity: 0.5 }}>{d.toDateString()}</span>
                 </div>
