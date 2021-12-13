@@ -20,6 +20,7 @@ const Register = (props) => {
 
 const RegistrationCard = (props) => {
     const navigate = useNavigate();
+    const [handle, setHandle] = useState("");
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [firstName, setFirstName] = useState(null);
@@ -28,6 +29,10 @@ const RegistrationCard = (props) => {
     const [loading, setLoading] = useState(false);
     const handleRegister = async () => {
         let success = false;
+        if (handle === "") {
+            setErrorMessage("Please choose a handle");
+            return;
+        }
         setLoading(true);
         await createUser(username, password).then((code) => {
             if (code === "auth/invalid-email") {
@@ -49,7 +54,7 @@ const RegistrationCard = (props) => {
             updateCurrentUser({
                 firstName,
                 lastName,
-                handle: firstName.substr(0, 1) + "_" + lastName,
+                handle,
             });
             navigate("/privacy");
         }
@@ -73,6 +78,24 @@ const RegistrationCard = (props) => {
                 ) : (
                     ""
                 )}
+                <div className="row mb-2">
+                    <div className="col-md-6">
+                        <div className="form-floating">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="a"
+                                id="handle"
+                                onChange={(e) =>
+                                    setHandle(e.target.value.replace(/\s/g, ""))
+                                }
+                            />
+                            <label htmlFor="handle" className="form-label">
+                                Handle
+                            </label>
+                        </div>
+                    </div>
+                </div>
                 <div className="row mb-2">
                     <div className="col-md-6">
                         <div className="form-floating">

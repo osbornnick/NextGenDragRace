@@ -83,9 +83,7 @@ const EditUser = (props) => {
                 <div className="card-body">
                     <h5 className="card-title">
                         <div className="input-group">
-                            <div className="input-group-prepend">
-                                <div className="input-group-text">@</div>
-                            </div>
+                            <div className="input-group-text">@</div>
                             <input
                                 type="text"
                                 placeholder={currentUser.handle}

@@ -33,7 +33,7 @@ const CommentSection = (props) => {
                     />
                 </li>
                 {comments
-                    ? comments.map((c, i) => <Comment comment={c} _key={i} />)
+                    ? comments.map((c, i) => <Comment comment={c} key={i} />)
                     : ""}
             </ul>
         </div>
@@ -82,7 +82,7 @@ const Comment = (props) => {
     return (
         <li
             className="list-group-item d-flex align-items-center"
-            key={props._key}
+            key={comment.id}
         >
             <div>
                 <div>
