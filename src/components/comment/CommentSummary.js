@@ -13,10 +13,10 @@ const CommentSummary = (props) => {
             <li className="list-group-item">
                 <h5 className="m-0">{title || "Comments"}</h5>
             </li>
-            {comments.map((comment) => (
+            {comments.map((comment, i) => (
                 <li
                     className="list-group-item list-group-item-action d-flex align-items-center"
-                    key={comment.id}
+                    key={i}
                     onClick={() =>
                         navigate(`/details/${comment.onEntity}/${comment.onID}`)
                     }

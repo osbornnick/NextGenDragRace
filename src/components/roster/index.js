@@ -32,6 +32,7 @@ export const Roster = (props) => {
     const navigate = useNavigate();
     useEffect(() => getRoster(dispatch, id), [dispatch, id]);
     if (!roster) return "loading";
+    if (roster.rosterNotFound) return "This roster was deleted";
     if (editing) return <EditRoster roster={roster} setEditing={setEditing} />;
 
     return (

@@ -39,8 +39,16 @@ export const getRostersForCurrentUser = async (dispatch) => {
 
 export const getRoster = async (dispatch, id) => {
     let roster = await getDoc(doc(db, "rosters", id)).then((snap) => {
-        return { ...snap.data(), id: snap.id };
+        if (snap.exists()) return { ...snap.data(), id: snap.id };
+        return false;
     });
+    if (!roster) {
+        dispatch({
+            type: "set-roster",
+            roster: { rosterNotFound: true, id: roster.id },
+        });
+        return;
+    }
     if (roster.queens) {
         let queens = await getRostersQueens(roster);
         roster = { ...roster, queens };

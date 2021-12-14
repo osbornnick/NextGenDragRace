@@ -18,6 +18,7 @@ const CommentSection = (props) => {
     const { comments } = useSelector(commentSelector);
     const { currentUser } = useSelector(userSelector);
     useEffect(() => {
+        console.log("getting comments for ", parentEntityType, " ", parentId);
         getCommentsOnEntity(dispatch, parentEntityType, parentId);
     }, [dispatch, parentEntityType, parentId]);
     return (

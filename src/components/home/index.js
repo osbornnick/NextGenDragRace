@@ -79,7 +79,7 @@ const Seasons = () => {
     );
 
     return seasons.map((season) => (
-        <div className="mb-2">
+        <div className="mb-2" key={season.id}>
             <Accordian
                 name={"Season " + season.seasonNumber}
                 mapFunction={queenMap}

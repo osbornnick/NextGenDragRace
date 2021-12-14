@@ -12,10 +12,11 @@ import {
 } from "firebase/firestore";
 
 export const getCommentsOnEntity = (dispatch, entityType, entityId) => {
+    entityId = Number.isInteger(entityId) ? parseInt(entityId) : entityId;
     const q = query(
         collection(db, "comments"),
         where("onEntity", "==", entityType),
-        where("onID", "==", parseInt(entityId)),
+        where("onID", "==", entityId),
         orderBy("dateCreated", "desc")
     );
     return getDocs(q).then((querySnapshot) => {
@@ -36,9 +37,10 @@ export const deleteComment = (dispatch, commentId) => {
 };
 
 export const makeComment = (dispatch, onEntity, onID, text, userID) => {
+    onID = Number.isInteger(onID) ? parseInt(onID) : onID;
     const comment = {
         onEntity,
-        onID: parseInt(onID),
+        onID,
         text,
         writtenBy: userID,
         dateCreated: Timestamp.now(),
