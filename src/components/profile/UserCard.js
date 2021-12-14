@@ -2,7 +2,6 @@ import { getAuth } from "@firebase/auth";
 
 const UserCard = (props) => {
     const auth = getAuth();
-    console.log(auth.currentUser);
 
     const { user, ownProfile } = props;
     const fullName =
