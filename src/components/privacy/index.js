@@ -9,12 +9,11 @@ import Protect from "./protect";
 const Privacy = () => {
     return (
         <>
-            <div className="row mt-3">
+            <div className="row mt-3" id="top">
                 <div className="col-lg-4">
                     <PolicyNavigation />
                 </div>
                 <div className="col-lg-8">
-                    <a name="top"></a>
                     <h2>Drag Homies Privacy Policy</h2>
                     <i>Last updated December 5, 2021</i>
                     <Intro />

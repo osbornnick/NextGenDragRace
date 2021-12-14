@@ -15,7 +15,7 @@ import {
     Timestamp,
     getDocs,
 } from "firebase/firestore";
-import { db, app } from "./initialize_firebase.js";
+import { db } from "./initialize_firebase.js";
 const auth = getAuth();
 
 export const createUser = async (email, password) => {

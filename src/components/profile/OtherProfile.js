@@ -18,7 +18,7 @@ const OtherProfile = () => {
         getUserDetails(id).then(setUser);
         getUsersRosters(id).then(setRosters);
         getUsersComments(dispatch, id);
-    }, []);
+    }, [dispatch, id]);
     if (!user) return "Loading...";
     return (
         <div className="row">

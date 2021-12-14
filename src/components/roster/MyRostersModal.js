@@ -6,7 +6,7 @@ import { addQueenToRoster } from "../../services/rosterService";
 export const MyRostersModal = () => {
     const { myRosters } = useSelector((state) => state.myRosters);
     const dispatch = useDispatch();
-    useEffect(() => getRostersForCurrentUser(dispatch), []);
+    useEffect(() => getRostersForCurrentUser(dispatch), [dispatch]);
     return (
         <div className="modal fade" id="rosterModal">
             <div className="modal-dialog">

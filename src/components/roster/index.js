@@ -28,9 +28,9 @@ export const Roster = (props) => {
     const { roster } = useSelector((state) => state.roster);
     const { currentUser } = useSelector((state) => state.currentUser);
     const [editing, setEditing] = useState(false);
-    useEffect(() => getRoster(dispatch, id), [id]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    useEffect(() => getRoster(dispatch, id), [dispatch, id]);
     if (!roster) return "loading";
     if (editing) return <EditRoster roster={roster} setEditing={setEditing} />;
 

@@ -65,7 +65,7 @@ const Result = (props) => {
             countComments("queens", queen.id).then((size) =>
                 setNumComments(size)
             ),
-        []
+        [queen]
     );
     return (
         <li

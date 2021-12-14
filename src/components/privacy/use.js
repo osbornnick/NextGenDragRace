@@ -3,8 +3,7 @@ import React from "react";
 const Use = () => {
     return (
         <>
-            <a name="use"></a>
-            <h4>Use of Your Information</h4>
+            <h4 id="use">Use of Your Information</h4>
             <p>
                 Having accurate information about you permits us to provide you
                 with a smooth, efficient, and customized experience.
