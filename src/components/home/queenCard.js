@@ -7,7 +7,6 @@ export const QueenImage = (props) => {
     const [imgSrc, setImgSrc] = useState(queen.image_url);
     const fallbackSrc = "/images/rupaul.jpg";
     const onerr = () => {
-        console.log("on err event fired");
         setImgSrc(fallbackSrc);
     };
     const navigate = useNavigate();
