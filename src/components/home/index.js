@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { paginateQueens } from "../../services/queenService";
 import { useDispatch, useSelector } from "react-redux";
-import { QueenImage } from "./queenCard";
 import { getAllSeasons } from "../../services/seasonService";
 import Accordian from "../utils/Accordian";
 import { useNavigate } from "react-router";
@@ -10,11 +9,11 @@ import { DateTime } from "luxon";
 import { Link } from "react-router-dom";
 import { CommentSummary } from "../comment";
 import { getUsersComments } from "../../services/commentService";
-const selectQueens = (state) => state.queens;
+// const selectQueens = (state) => state.queens;
 
 const Home = () => {
     const dispatch = useDispatch();
-    const { queens } = useSelector(selectQueens);
+    // const { queens } = useSelector(selectQueens);
     const { currentUser } = useSelector((state) => state.currentUser);
     const [newestUser, setNewestUser] = useState();
 
@@ -22,7 +21,7 @@ const Home = () => {
         paginateQueens(dispatch, 0);
         getNewestUser().then(setNewestUser);
         getUsersComments(dispatch, currentUser && currentUser.id);
-    }, [currentUser]);
+    }, [dispatch, currentUser]);
     return (
         <div className="container">
             <div className="row">

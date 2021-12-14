@@ -17,7 +17,7 @@ const MyProfile = () => {
     useEffect(() => {
         getRostersForCurrentUser(dispatch);
         getUsersComments(dispatch, currentUser && currentUser.id);
-    }, [currentUser]);
+    }, [dispatch, currentUser]);
     if (!currentUser)
         return (
             <div className="row h-100">

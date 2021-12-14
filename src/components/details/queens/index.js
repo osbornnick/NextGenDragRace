@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setQueenById } from "../../../services/queenService";
 import { useParams } from "react-router-dom";
@@ -15,7 +15,7 @@ const Details = () => {
     const { currentUser } = useSelector((state) => state.currentUser);
     useEffect(() => {
         setQueenById(dispatch, params.id);
-    }, []);
+    }, [dispatch, params.id]);
     if (!queen) return "Loading";
     return (
         <>

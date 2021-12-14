@@ -19,7 +19,7 @@ const CommentSection = (props) => {
     const { currentUser } = useSelector(userSelector);
     useEffect(() => {
         getCommentsOnEntity(dispatch, parentEntityType, parentId);
-    }, [parentEntityType, parentId]);
+    }, [dispatch, parentEntityType, parentId]);
     return (
         <div>
             <ul className="list-group">
@@ -76,7 +76,7 @@ const Comment = (props) => {
     const dispatch = useDispatch();
     useEffect(() => {
         getUserDetails(comment.writtenBy).then(setAuthor);
-    }, []);
+    }, [comment.writtenBy]);
     const d = new Date(comment.dateCreated.seconds * 1000);
     const showDelete =
         currentUser &&
