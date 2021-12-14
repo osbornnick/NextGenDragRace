@@ -1,6 +1,6 @@
 import { getDoc } from "@firebase/firestore";
 
-const API_URL = "http://www.nokeynoshade.party/api/queens";
+const API_URL = "https://www.nokeynoshade.party/api/queens";
 
 export const paginateQueens = async (dispatch, offset) => {
     const limit = 10;

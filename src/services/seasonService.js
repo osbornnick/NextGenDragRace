@@ -1,4 +1,4 @@
-const API_URL = "http://www.nokeynoshade.party/api/seasons";
+const API_URL = "https://www.nokeynoshade.party/api/seasons";
 
 export const getSeasonsQueens = (seasonId) => {
     const url = `${API_URL}/${seasonId}/queens`;
